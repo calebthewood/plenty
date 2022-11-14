@@ -12,19 +12,32 @@ export default function Draggable() {
     container: {
       flex: 1,
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      backgroundColor: "skyblue"
     },
-    titleText: {
-      fontSize: 14,
-      lineHeight: 24,
-      fontWeight: "bold"
+    coinText: {
+      top: -43,
+      left: 23,
+      fontSize: 24,
+      fontWeight: "bold",
+      color: "#d57e08",
     },
     box: {
-      height: 150,
-      width: 150,
-      backgroundColor: "goldenrod",
+      height: 60,
+      width: 60,
+      backgroundColor: "#ffbd0b",
       borderRadius: 100,
-      borderColor: "mustard",
+
+      shadowOffset: { width: -2, height: 4 },
+      shadowColor: "#212121",
+      shadowOpacity: 0.3,
+      shadowRadius: 2,
+      borderWidth: 4,
+
+      borderTopColor: "#ffd84c",
+      borderLeftColor: "#ffd84c",
+      borderRightColor: "#d57e08",
+      borderBottomColor: "#d57e08",
     }
   });
 
@@ -46,14 +59,15 @@ export default function Draggable() {
         ]
       ),
       onPanResponderRelease: () => {
-        pan.flattenOffset();
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 }
+        }).start();
       }
     })
   ).current;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Drag Me!</Text>
       <Animated.View
         style={{
           transform: [{ translateX: pan.x }, { translateY: pan.y }]
@@ -61,11 +75,11 @@ export default function Draggable() {
         {...panResponder.panHandlers}
       >
         <View style={styles.box} />
-        <Text style={styles.titleText}>$</Text>
+        <Text style={styles.coinText}>$</Text>
       </Animated.View>
     </View>
   );
-}
+};
 
 
 
