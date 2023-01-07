@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from "react";
+import React, { useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -7,11 +7,11 @@ import {
   Text
 } from 'react-native';
 
-export default function SpringToOrigin() {
+export default function DragNDrop() {
   const styles = StyleSheet.create({
     coinText: {
       top: -43,
-      left: 21,
+      left: 23,
       fontSize: 24,
       fontWeight: "bold",
       color: "#d57e08",
@@ -53,29 +53,20 @@ export default function SpringToOrigin() {
         ]
       ),
       onPanResponderRelease: () => {
-        console.log("*** pan: ", pan);
-        Animated.spring(pan, {
-          toValue: { x: 0, y: 0 },
-          useNativeDriver: false,
-        }).start();
+        pan.flattenOffset();
       }
     })
   ).current;
 
   return (
-    <View style={styles.container}>
-      <Animated.View
-        style={{
-          transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder.panHandlers}
-      >
-        <View style={styles.box} />
-        <Text style={styles.coinText}>O</Text>
-      </Animated.View>
-    </View>
+    <Animated.View
+      style={{
+        transform: [{ translateX: pan.x }, { translateY: pan.y }]
+      }}
+      {...panResponder.panHandlers}
+    >
+      <View style={styles.box} />
+      <Text style={styles.coinText}>D</Text>
+    </Animated.View>
   );
 };
-
-
-
