@@ -51,6 +51,7 @@ function SnapTo() {
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
+        // Applies the added value from release to the offset.
         pan.setOffset({
           x: pan.x._value + pan.x._offset,
           y: pan.y._value + pan.y._offset
@@ -63,15 +64,32 @@ function SnapTo() {
         pan.y.setValue(gesture.dy);
       },
       onPanResponderRelease: () => {
-        // console.log("*** pan: ", pan);
-        let newX = pan.x._value > 0 ? 100 : pan.x._value < 0 ? -100 : 0;
-        let newY = pan.y._value > 0 ? 200 : pan.y._value < 0 ? -300 : 0;
         pan.flattenOffset();
+        let newX, newY;
+        if (pan.x._value < 40 && pan.x._value > -40
+          && pan.y._value < 40 && pan.y._value > -40) {
+            newX = 0;
+            newY = 0;
+        } else if (pan.x._value > 0 && pan.y._value > 0) {
+          newX = 100;
+          newY = 200;
+        } else if (pan.x._value > 0 && pan.y._value < 0) {
+          newX = 100;
+          newY = -300;
+        } else if (pan.x._value < 0 && pan.y._value < 0) {
+          newX = -100;
+          newY = -300;
+        } else if (pan.x._value < 0 && pan.y._value > 0) {
+          newX = -100;
+          newY = 200;
+        }
         Animated.spring(pan, {
-          toValue: { x: newX, y: newY },
+          toValue: {
+            x: newX,
+            y: newY
+          },
           useNativeDriver: false,
         }).start();
-        pan.flattenOffset();
       }
     })
   ).current;

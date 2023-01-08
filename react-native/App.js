@@ -20,6 +20,8 @@ export default function App() {
         <SpringToOrigin />
         <DragNDrop />
         <SnapTo />
+        <SnapTo />
+        <SnapTo />
       </View>
       <StatusBar style="auto" hidden={true} />
     </View >
