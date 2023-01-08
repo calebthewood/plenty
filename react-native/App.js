@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet } from 'react-native';
 import SpringToOrigin from './SpringToOrigin';
 import DragNDrop from './DragNDrop';
+import SnapTo from './SnapTo';
 
 export default function App() {
   const styles = StyleSheet.create({
@@ -18,6 +19,7 @@ export default function App() {
       <View style={styles.container}>
         <SpringToOrigin />
         <DragNDrop />
+        <SnapTo />
       </View>
       <StatusBar style="auto" hidden={true} />
     </View >
