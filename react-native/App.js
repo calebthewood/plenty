@@ -5,20 +5,15 @@ import { BigButton } from './src/containers/BigButton';
 
 
 export default function App() {
-  const image = { uri: "assets/forest-background.png" };
+  const image = { uri: "assets/landscape/demo-homescreen.png" };
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground source={require('./assets/forest-background.png')} resizeMode="cover" style={styles.image}>
-        <View style={styles.buttonsCol}>
-          <BigButton style={styles.getMoneyBtn} btnLabel={"Get Money"} />
-          <BigButton style={styles.useMoneyBtn} btnLabel={"Use Money"} />
-        </View>
+      <ImageBackground source={require('./assets/landscape/demo-homescreen.png')} resizeMode="cover" style={styles.image}>
+
         <View style={styles.mainCol}>
           <Text style={styles.text}>Main Display</Text>
         </View>
-        <View style={styles.walletCol}>
-          <Text style={styles.text}>Wallet</Text>
-        </View>
+
         <StatusBar style="auto" hidden={true} />
       </ImageBackground>
     </SafeAreaView >
@@ -40,7 +35,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    backgroundColor: '#ff7675',
+    backgroundColor: '#ff7675'
   },
   buttonsCol: {
     flex: 1,
