@@ -11,7 +11,7 @@ export default function App() {
       <ImageBackground source={require('./assets/landscape/demo-homescreen.png')} resizeMode="cover" style={styles.image}>
 
         <View style={styles.mainCol}>
-          <Text style={styles.text}>Main Display</Text>
+          <BigButton />
         </View>
 
         <StatusBar style="auto" hidden={true} />
@@ -50,8 +50,6 @@ const styles = StyleSheet.create({
     flex: 5,
     borderWidth: 5,
     borderColor: "#6a89cc", //livid
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   walletCol: {
     flex: 1,

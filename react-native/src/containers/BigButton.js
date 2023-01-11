@@ -1,36 +1,28 @@
 import React from 'react';
-import { StyleSheet, Pressable, Button, View, SafeAreaView, Text, Alert } from 'react-native';
+import { Pressable, View, Alert, Image } from 'react-native';
+import { styles } from './buttonStyles.js';
 
 
-export function BigButton({btnLabel="Press Me"}) {
+export function BigButton({ btnLabel = "Press Me" }) {
+
+  const icon = require('../../assets/trees/tree-round-3.png');
+
 
   return (
-    <Pressable
-      style={styles.pressable}
-      accessibilityLabel="Describe btn action here"
-      onPress={() => Alert.alert(btnLabel + "Button Pressed")}>
-      <Text style={styles.text}>{btnLabel}</Text>
-    </Pressable>
+    <View style={styles.containerTree}>
+
+      <Image
+        style={styles.tree}
+        resizeMode="contain"
+        source={require('../../assets/trees/tree-round-3.png')} />
+
+      <Pressable
+        style={({ pressed }) => pressed ? styles.pressedTree : styles.pressableTree}
+        accessibilityLabel="Describe btn action here"
+        onPress={() => Alert.alert(btnLabel + "Button Pressed")}>
+
+      </Pressable>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  pressable: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 100,
-    width: 100,
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    borderRadius: 100,
-    elevation: 3,
-    backgroundColor: '#0c2461', //Sapphire
-  },
-  text: {
-    fontSize: 12,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: '#fad390', //flat flesh
-  },
-});
