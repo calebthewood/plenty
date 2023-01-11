@@ -6,7 +6,7 @@ import { styles } from './buttonStyles.js';
 export function BigButton({ btnLabel = "Press Me" }) {
 
   const icon = require('../../assets/trees/tree-round-3.png');
-
+  function alert() { Alert.alert(btnLabel + "Button Pressed"); }
 
   return (
     <View style={styles.containerTree}>
@@ -19,7 +19,7 @@ export function BigButton({ btnLabel = "Press Me" }) {
       <Pressable
         style={({ pressed }) => pressed ? styles.pressedTree : styles.pressableTree}
         accessibilityLabel="Describe btn action here"
-        onPress={() => Alert.alert(btnLabel + "Button Pressed")}>
+        onPress={alert}>
 
       </Pressable>
     </View>

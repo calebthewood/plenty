@@ -4,6 +4,11 @@ export const styles = StyleSheet.create({
     left: 430,
     top: 110,
     position: 'relative',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#2c3e50',
+    // height: 140,
+    // width: 140,
   },
 
   translate: {
@@ -15,10 +20,13 @@ export const styles = StyleSheet.create({
   tree: {
     position: 'relative',
     height: 120,
-    left: -75,
-    top: 20,
-    zIndex: 1,
+    // left: -75,
+    // top: 20,
+    // zIndex: 1,
     transitionDuration: '0.4s',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#e74c3c',
   },
 
   //   transform: 'translateY(5px)',
@@ -30,7 +38,7 @@ export const styles = StyleSheet.create({
     ],
     width: 40,
     height: 40,
-    borderWidth: '.5px',
+    borderWidth: 1,
     borderStyle: 'solid',
     borderColor: '#8db963',
     backgroundColor: '#B9CF71',
@@ -56,12 +64,12 @@ export const styles = StyleSheet.create({
     borderRightColor: '#7C472B',
     borderRightWidth: '5px',
     borderRightStyle: 'solid',
-    shadowProp: {
-      shadowColor: '#9CAA5D',
-      shadowOffset: { width: -3, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 2,
-    }
+    // shadowProp: {
+    //   shadowColor: '#9CAA5D',
+    //   shadowOffset: { width: -3, height: 2 },
+    //   shadowOpacity: 0.2,
+    //   shadowRadius: 2,
+    // }
   }
 });
 
