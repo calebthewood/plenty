@@ -1,6 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { View, ImageBackground, StyleSheet, SafeAreaView, Text } from 'react-native';
-import { RotatingView } from './src/components/RotatingView';
+import { View, ImageBackground, StyleSheet } from 'react-native';
 import { BigButton } from './src/containers/BigButton';
 
 
@@ -24,7 +22,6 @@ export default function HomeScreen() {
 
 
 const styles = StyleSheet.create({
-
   background: {
     flex: 1,
     alignItems: 'center',
@@ -42,5 +39,4 @@ const styles = StyleSheet.create({
     borderColor: "#d63031",
     borderStyle: "solid",
   },
-
 });
