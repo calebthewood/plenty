@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     width: 80,
     height: 140,
-    left: 130,
-    top: 20,
+    left: 150,
+    top: 10,
   }
 });

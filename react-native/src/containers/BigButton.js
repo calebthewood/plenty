@@ -10,6 +10,7 @@ export function BigButton() {
 
   return (
     <Pressable
+      accessibilityLabel="Visit your investment"
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
       style={pressed ? StyleSheet.compose(
@@ -22,11 +23,11 @@ export function BigButton() {
           styles.tree, styles.pressed)
           : styles.tree} />
       <View
-        accessibilityLabel="Describe btn action here"
         style={pressed ? StyleSheet.compose(
           styles.base, styles.basePressed)
           : styles.base}>
       </View>
+      <View style={styles.shadow}></View>
     </Pressable>
   );
 }

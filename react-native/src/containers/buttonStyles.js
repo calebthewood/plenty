@@ -1,35 +1,39 @@
 import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
-    position: 'relative',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#2c3e50', // grey
+    position: 'absolute',
     alignItems: 'center',
-    // height: 50,
+    justifyContent: 'center',
+    height: 120,
     width: 80,
+    // borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderColor: '#2c3e50', // grey
   },
   tree: {
     position: 'relative',
     height: 120,
     width: 80,
-    // left: -75,
-    top: 20,
+    top: 23,
     zIndex: 1,
     transitionDuration: '0.4s',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#e74c3c', // red
+    // borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderColor: '#e74c3c', // red
+    // shadowColor: '#212121',
+    // shadowOffset: { width: -20, height: 40 },
+    // shadowOpacity: .4,
+    // shadowRadius: 10,
   },
   base: {
     width: 40,
     height: 40,
     cursor: 'pointer',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#8db963', // green
+    // borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderColor: '#8db963', // green
     backgroundColor: 'transparent',
-    borderRadius: 40,
+    borderRadius: 20,
     transform: [
       { rotate: "-30deg" },
       { skewX: '25deg' }
@@ -38,13 +42,21 @@ export const styles = StyleSheet.create({
   basePressed: {
     backgroundColor: '#A7BC5B',
     border: 'none',
-    borderRightStyle: 'solid',
-    borderRadius: 40,
+    borderStyle: 'solid',
+    borderRadius: 20,
+    width: 30,
+    height: 30,
     borderTopColor: '#9D5B35', // light brown
     borderTopWidth: 5,
-    borderTopStyle: 'solid',
+
     borderRightColor: '#7C472B', //dark brown
     borderRightWidth: 5,
+
+    borderBottomColor: '#BAD070',
+    borderBottomWidth: 0,
+
+    borderLeftColor: '#9D5B35',
+    borderLeftWidth: 1,
   },
   pressable: {
     position: 'relative',
@@ -53,12 +65,26 @@ export const styles = StyleSheet.create({
     transform: [
       { translateY: 5 },
     ],
-    shadowProp: {
-      shadowColor: '#9CAA5D',
-      shadowOffset: { width: -3, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 2,
-    }
+  },
+  shadow: {
+    // borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderColor: '#e74c3c', // red
+    position: 'absolute',
+    backgroundColor: '#21210310',
+    borderRadius: 50,
+    borderBottomEndRadius: 15,
+    height: 40,
+    width: 45,
+    top: 84,
+    left: 0,
+    shadowColor: 'black',
+    shadowOffset: { width: -5, height: -5 },
+    shadowOpacity: 1, // 0-1
+    shadowRadius: 5,
+    transform: [
+      { rotate: "0deg" },
+      { skewX: '30deg' }]
   }
 });
 
