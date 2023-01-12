@@ -1,9 +1,10 @@
 import { View, ImageBackground, StyleSheet } from 'react-native';
-import { BigButton } from './src/containers/BigButton';
+import { BigButton } from './BigButton';
+import { StatusBar } from 'expo-status-bar';
 
 
-export default function HomeScreen() {
-  const backgroundImg = require('./assets/landscape/demo-homescreen.png');
+export function HomeScreen() {
+  const backgroundImg = require('../../assets/landscape/demo-homescreen.png');
 
   return (
     <ImageBackground
@@ -12,10 +13,10 @@ export default function HomeScreen() {
       style={styles.background}>
 
       <View style={styles.container}>
-
         <BigButton />
-
       </View>
+
+      <StatusBar style="auto" hidden={true} />
     </ImageBackground>
   );
 }

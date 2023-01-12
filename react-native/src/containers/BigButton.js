@@ -1,28 +1,33 @@
-import React from 'react';
-import { Pressable, View, Alert, Image } from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, View, Alert, Image, StyleSheet } from 'react-native';
 import { styles } from './buttonStyles.js';
 
 
-export function BigButton({ btnLabel = "Press Me" }) {
+export function BigButton() {
 
-  const icon = require('../../assets/trees/tree-round-3.png');
-  function alert() { Alert.alert(btnLabel + "Button Pressed"); }
+  const [pressed, setPressed] = useState(false);
+  const treeImg = require('../../assets/trees/tree-round-3.png');
 
   return (
-    <View style={styles.containerTree}>
-
+    <Pressable
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      style={pressed ? StyleSheet.compose(
+        styles.container, styles.pressed)
+        : styles.container}>
       <Image
-        style={styles.tree}
         resizeMode="contain"
-        source={require('../../assets/trees/tree-round-3.png')} />
-
-      <Pressable
-        style={({ pressed }) => pressed ? styles.pressedTree : styles.pressableTree}
+        source={treeImg}
+        style={pressed ? StyleSheet.compose(
+          styles.tree, styles.pressed)
+          : styles.tree} />
+      <View
         accessibilityLabel="Describe btn action here"
-        onPress={alert}>
-
-      </Pressable>
-    </View>
+        style={pressed ? StyleSheet.compose(
+          styles.base, styles.basePressed)
+          : styles.base}>
+      </View>
+    </Pressable>
   );
 }
 

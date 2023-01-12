@@ -5,7 +5,7 @@ import { HomeScreen } from './src/containers/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 function App() {
-  const image = { uri: "assets/landscape/demo-homescreen.png" };
+
   return (
     <NavigationContainer>
       <Stack.Navigator style={{display: 'hidden'}}>
@@ -15,5 +15,4 @@ function App() {
     </NavigationContainer>
   );
 }
-
 export default App;
