@@ -12,8 +12,11 @@ export function HomeScreen() {
       resizeMode="cover"
       style={styles.background}>
 
-      <View style={styles.container}>
-        <BigButton />
+      <View
+        style={styles.container}>
+        <View style={styles.treeOne}>
+          <BigButton />
+        </View>
       </View>
 
       <StatusBar style="auto" hidden={true} />
@@ -39,5 +42,16 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "#d63031",
     borderStyle: "solid",
+
   },
+  treeOne: {
+    position: 'relative',
+    // borderColor: 'red',
+    // borderStyle: 'solid',
+    // borderWidth: 1,
+    width: 80,
+    height: 140,
+    left: 130,
+    top: 20,
+  }
 });
