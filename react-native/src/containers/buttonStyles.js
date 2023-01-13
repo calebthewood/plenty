@@ -48,13 +48,10 @@ export const styles = StyleSheet.create({
     height: 30,
     borderTopColor: '#9D5B35', // light brown
     borderTopWidth: 5,
-
     borderRightColor: '#7C472B', //dark brown
     borderRightWidth: 5,
-
     borderBottomColor: '#BAD070',
     borderBottomWidth: 0,
-
     borderLeftColor: '#9D5B35',
     borderLeftWidth: 1,
   },

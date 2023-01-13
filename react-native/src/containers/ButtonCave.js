@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   base: {
-    width: 100,
-    height: 100,
+    width: 70,
+    height: 60,
     cursor: 'pointer',
     backgroundColor: 'transparent',
     borderRadius: 20,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderRadius: 50,
     width: 70,
-    height: 60,
+    height: 65,
     borderTopColor: '#9D5B35', // light brown
     borderTopWidth: 5,
     borderRightColor: '#7C472B', //dark brown
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   pressed: {
     transform: [
-      { translateY: 0 },
+      { translateY: 5 },
     ],
   },
   shadow: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     // borderBottomEndRadius: 15,
     height: 50,
     width: 70,
-    top: 30,
+    top: 50,
     left: -10,
     shadowColor: 'black',
     shadowOffset: { width: -5, height: -5 },

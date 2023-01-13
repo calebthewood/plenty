@@ -1,6 +1,9 @@
 import { View, ImageBackground, StyleSheet } from 'react-native';
 import { ButtonTRM } from './ButtonTRM';
 import { ButtonCave } from './ButtonCave';
+import { ButtonMakeMoney } from './ButtonMakeMoney';
+import { ButtonUseMoney } from './ButtonUseMoney';
+import { ButtonWallet } from './ButtonWallet';
 import { StatusBar } from 'expo-status-bar';
 
 /*
@@ -27,6 +30,17 @@ export function HomeScreen() {
         </View>
         <View style={styles.caveOne}>
           <ButtonCave />
+        </View>
+        <View style={styles.makeMoney}>
+          <ButtonMakeMoney />
+        </View>
+
+        <View style={styles.useMoney}>
+          <ButtonUseMoney />
+        </View>
+
+        <View style={styles.wallet}>
+          <ButtonWallet />
         </View>
 
       </View>
@@ -57,23 +71,53 @@ const styles = StyleSheet.create({
 
   },
   treeOne: {
-    position: 'relative',
+    position: 'absolute',
     // borderColor: 'red',
     // borderStyle: 'solid',
     // borderWidth: 1,
     width: 80,
     height: 140,
-    left: 150,
-    top: 10,
+    left: 350,
+    top: 30,
   },
   caveOne: {
-    position: 'relative',
+    position: 'absolute',
     // borderColor: 'red',
     // borderStyle: 'solid',
     // borderWidth: 1,
     width: 80,
     height: 120,
-    right: 270,
-    bottom: 170,
+    top: 0,
+    left: 20,
+  },
+  makeMoney: {
+    position: 'absolute',
+    // borderColor: 'red',
+    // borderStyle: 'solid',
+    // borderWidth: 1,
+    width: 80,
+    height: 120,
+    left: 0,
+    top: 110,
+  },
+  useMoney: {
+    position: 'absolute',
+    // borderColor: 'red',
+    // borderStyle: 'solid',
+    // borderWidth: 1,
+    width: 100,
+    height: 110,
+    left: 240,
+    top: 125,
+  },
+  wallet: {
+    position: 'absolute',
+    // borderColor: 'red',
+    // borderStyle: 'solid',
+    // borderWidth: 1,
+    width: 100,
+    height: 100,
+    left: 550,
+    top: 250,
   }
 });
