@@ -1,7 +1,14 @@
 import { View, ImageBackground, StyleSheet } from 'react-native';
-import { BigButton } from './BigButton';
+import { ButtonTRM } from './ButtonTRM';
+import { ButtonCave } from './ButtonCave';
 import { StatusBar } from 'expo-status-bar';
 
+/*
+Until I refactor the button to be more customizable, the button naming scheme is as follows:
+
+Button[Type][Shape][Size]
+  ex: Button[Tree][Round][Medium] which I abbreviate to 'ButtonTRM'
+*/
 
 export function HomeScreen() {
   const backgroundMid = require('../../assets/landscape/demo-homescreen.png');
@@ -16,8 +23,12 @@ export function HomeScreen() {
       <View
         style={styles.container}>
         <View style={styles.treeOne}>
-          <BigButton />
+          <ButtonTRM />
         </View>
+        <View style={styles.caveOne}>
+          <ButtonCave />
+        </View>
+
       </View>
 
       <StatusBar style="auto" hidden={true} />
@@ -54,5 +65,15 @@ const styles = StyleSheet.create({
     height: 140,
     left: 150,
     top: 10,
+  },
+  caveOne: {
+    position: 'relative',
+    // borderColor: 'red',
+    // borderStyle: 'solid',
+    // borderWidth: 1,
+    width: 80,
+    height: 120,
+    right: 270,
+    bottom: 170,
   }
 });
