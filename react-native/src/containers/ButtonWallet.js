@@ -25,7 +25,7 @@ export function ButtonWallet() {
           styles.base, styles.basePressed) : styles.base}>
       </View>
       <View style={pressed ? StyleSheet.compose(
-        styles.shadow, styles.pressed) : styles.shadow}></View>
+        styles.shadow, styles.shadowPressed) : styles.shadow}></View>
     </Pressable>
   );
 }
@@ -82,19 +82,24 @@ const styles = StyleSheet.create({
   },
   shadow: {
     position: 'absolute',
-    backgroundColor: '#212103',
+    backgroundColor: '#21210310',
     borderRadius: 50,
     // borderBottomEndRadius: 15,
-    height: 35,
-    width: 35,
-    top: 50,
-    left: 15,
+    height: 60,
+    width: 70,
+    top: 53,
+    left: -10,
     shadowColor: 'black',
-    shadowOffset: { width: -30, height: 30 },
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1, // 0-1
-    shadowRadius: 15,
+    shadowRadius: 3,
     transform: [
       { rotate: "-20deg" },
-      { skewX: '30deg' }]
+      { skewX: '45deg' }]
+  },
+  shadowPressed: {
+    top: 56,
+    height: 50,
+    width: 50,
   }
 });

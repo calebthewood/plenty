@@ -14,12 +14,12 @@ Button[Type][Shape][Size]
 */
 
 export function HomeScreen() {
-  const backgroundMid = require('../../assets/landscape/demo-homescreen.png');
+  const backgroundMid = require('../../assets/landscape/demo-homescreen-mid-edit.png');
   const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
 
   return (
     <ImageBackground
-      source={backgroundEmpty}
+      source={backgroundMid}
       resizeMode="cover"
       style={styles.background}>
 
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     width: 80,
     height: 140,
-    left: 350,
-    top: 30,
+    left: 380,
+    top: 70,
   },
   caveOne: {
     position: 'absolute',
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     width: 100,
     height: 100,
-    left: 550,
-    top: 250,
+    bottom: 15,
+    right: -8,
   }
 });
