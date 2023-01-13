@@ -4,11 +4,12 @@ import { StatusBar } from 'expo-status-bar';
 
 
 export function HomeScreen() {
-  const backgroundImg = require('../../assets/landscape/demo-homescreen.png');
+  const backgroundMid = require('../../assets/landscape/demo-homescreen.png');
+  const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
 
   return (
     <ImageBackground
-      source={backgroundImg}
+      source={backgroundEmpty}
       resizeMode="cover"
       style={styles.background}>
 

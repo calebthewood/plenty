@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
     // borderColor: '#e74c3c', // red
     position: 'absolute',
     backgroundColor: '#21210310',
-    borderRadius: 50,
+    borderRadius: 20,
     borderBottomEndRadius: 15,
     height: 40,
     width: 45,

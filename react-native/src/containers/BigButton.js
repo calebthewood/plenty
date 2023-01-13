@@ -27,7 +27,8 @@ export function BigButton() {
           styles.base, styles.basePressed)
           : styles.base}>
       </View>
-      <View style={styles.shadow}></View>
+      <View style={pressed ? StyleSheet.compose(
+        styles.shadow, styles.pressed) : styles.shadow}></View>
     </Pressable>
   );
 }
