@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import { Pressable, View, Image, StyleSheet } from 'react-native';
 
 
-export function ButtonMakeMoney() {
+export function ButtonMakeMoney({navigateTo}) {
 
   const [pressed, setPressed] = useState(false);
   const treeImg = require('../../assets/trees/tree-big-oak.png');
   const mushroomImg = require('../../assets/structures/mushroom-house-2.png');
 
+
+
   return (
     <Pressable
       accessibilityLabel="Visit your investment"
       onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
+      onPressOut={() => {
+        setPressed(false)
+        navigateTo('HomeTree')
+      }}
       style={pressed ? StyleSheet.compose(
         styles.container, styles.pressed)
         : styles.container}>
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#849D4B',
     // border: 'none',
     // borderStyle: 'solid',
-    // borderRadius: 50,
+    borderRadius: 50,
     width: 45,
     height: 45,
     borderTopColor: '#9D5B35', // light brown

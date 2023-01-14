@@ -13,9 +13,13 @@ Button[Type][Shape][Size]
   ex: Button[Tree][Round][Medium] which I abbreviate to 'ButtonTRM'
 */
 
-export function HomeScreen() {
+export function HomeScreen({ navigation }) {
   const backgroundMid = require('../../assets/landscape/demo-homescreen-mid-edit.png');
   const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
+
+  function handleNavigation(route) {
+    navigation.navigate(route)
+  }
 
   return (
     <ImageBackground
@@ -32,7 +36,7 @@ export function HomeScreen() {
           <ButtonCave />
         </View>
         <View style={styles.makeMoney}>
-          <ButtonMakeMoney />
+          <ButtonMakeMoney navigateTo={handleNavigation} />
         </View>
 
         <View style={styles.useMoney}>
@@ -65,9 +69,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: "#d63031",
-    borderStyle: "solid",
+    // borderWidth: 3,
+    // borderRadius:1,
+    // borderColor: "black",
+    // borderStyle: "solid",
+    // zIndex: 5,
 
   },
   treeOne: {
@@ -97,8 +103,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     width: 80,
     height: 120,
-    left: 0,
-    top: 110,
+    left: 1,
+    top: 111,
   },
   useMoney: {
     position: 'absolute',

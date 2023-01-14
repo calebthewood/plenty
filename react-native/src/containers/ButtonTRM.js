@@ -55,14 +55,7 @@ const styles = StyleSheet.create({
     width: 80,
     top: 23,
     zIndex: 1,
-    transitionDuration: '0.4s',
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: '#e74c3c', // red
-    // shadowColor: '#212121',
-    // shadowOffset: { width: -20, height: 40 },
-    // shadowOpacity: .4,
-    // shadowRadius: 10,
+
   },
   figure: {
     position: 'absolute',
@@ -75,11 +68,8 @@ const styles = StyleSheet.create({
   },
   base: {
     width: 45,
-    height: 40,
+    height: 45,
     cursor: 'pointer',
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: '#8db963', // green
     backgroundColor: 'transparent',
     borderRadius: 50,
     transform: [
