@@ -13,7 +13,8 @@ Check out the videos below for quick progress updates
 2. The 'Money Tree' - In this world, the money does grow on tress, but you'll need to pick it.
 - https://www.youtube.com/watch?v=Kx-MTZtLNH8&ab_channel=CalebWood
 
-
+3. Making progress on the money tree game. Not a lot changed on the surface, but I had to do quite a bit of coding for this one.
+- https://youtu.be/fpEBioA6ncs
 
 <img src="./assets/Screen%20Shot%202023-01-12%20at%2011.49.47%20PM.png" width="600px" />
 
