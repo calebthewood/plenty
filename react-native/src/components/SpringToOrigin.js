@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,11 +7,11 @@ import {
   Text
 } from 'react-native';
 
-export default function SpringToOrigin() {
+export default function SpringToOrigin({ basketCoords }) {
   const styles = StyleSheet.create({
     coinText: {
-      top: -43,
-      left: 21,
+      top: -44,
+      left: 22,
       fontSize: 24,
       fontWeight: "bold",
       color: "#d57e08",
@@ -35,6 +35,7 @@ export default function SpringToOrigin() {
     }
   });
 
+  const [showing, setShowing] = useState(true);
   const pan = useRef(new Animated.ValueXY()).current;
 
   const panResponder = useRef(
@@ -50,30 +51,38 @@ export default function SpringToOrigin() {
         [
           null,
           { dx: pan.x, dy: pan.y }
-        ]
+        ],{useNativeDriver: false}
       ),
-      onPanResponderRelease: () => {
-        console.log("*** pan: ", pan);
+      onPanResponderRelease: (evt, { moveX, moveY }) => {
+        console.log("*** moveX: ", moveX, " moveY: ", moveY);
 
-        Animated.spring(pan, {
-          toValue: { x: 0, y: 0 },
-          useNativeDriver: false,
-        }).start();
+        //if touching basket (method will need to be improved)
+        if (moveX > 271 && moveX < 430 && moveY > 272 && moveY < 360) {
+          // disappear
+          setShowing(false)
+          // update state with += $1
+        } else {
+          Animated.spring(pan, {
+            toValue: { x: 0, y: 0 },
+            useNativeDriver: false,
+          }).start();
+        }
       }
     })
   ).current;
 
-  return (
-      <Animated.View
-        style={{
-          transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder.panHandlers}
-      >
-        <View style={styles.box} />
-        <Text style={styles.coinText}>O</Text>
-      </Animated.View>
-  );
+  return showing ? (
+    <Animated.View
+      style={{
+        transform: [{ translateX: pan.x }, { translateY: pan.y }]
+      }}
+      {...panResponder.panHandlers}
+    >
+      <View style={styles.box} />
+      <Text style={styles.coinText}>$</Text>
+    </Animated.View>)
+    : null;
+
 };
 
 

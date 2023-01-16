@@ -93,7 +93,7 @@ export function SnapTo() {
       {...panResponder.panHandlers}
     >
       <View style={styles.box} />
-      <Text style={styles.coinText}>S</Text>
+      <Text style={styles.coinText}>$</Text>
     </Animated.View>
   );
 };
