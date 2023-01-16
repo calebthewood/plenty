@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { PanResponder } from "react-native";
+import { PanResponder, Animated} from "react-native";
 
 
 /**
