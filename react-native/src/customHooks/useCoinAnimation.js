@@ -20,15 +20,11 @@ export function useCoinAnimation(hideCoin, updateBasket) {
   const { height, width } = useWindowDimensions();
 
   function coinInBasket(x,y) {
-    console.log("*** X: ", x, " Y: ", y);
     const top = height - BASKET_HEIGHT;
     const bottom = height;
     const left = width / 2 - BASKET_WIDTH / 2;
     const right = width / 2 + BASKET_WIDTH / 2;
-    console.log("*** basket L: ", left, " basket R: ", right);
-    console.log("*** basket T: ", top, " basket B: ", bottom);
-    console.log("*** window w: ", width, " window h: ", height);
-    console.log("Coin In Basket: ", (x > left && x < right && y < bottom && y > top));
+    console.log("coinInBasket: ", (x > left && x < right && y < bottom && y > top));
     return (x > left && x < right && y < bottom && y > top)
   }
 
@@ -53,9 +49,7 @@ export function useCoinAnimation(hideCoin, updateBasket) {
         // useWindowDimensions to check if coin is within the height and width
         // of the bottom center of the screen. ie, where the basket will be
           if (coinInBasket(moveX,moveY)) {
-            // disappear
             hideCoin()
-            // update state with += $1
             updateBasket()
           } else {
             Animated.spring(pan, {

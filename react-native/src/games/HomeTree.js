@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import {
   View, ImageBackground, Image,
-  StyleSheet, Animated, Text,
-  Pressable, useWindowDimensions
+  StyleSheet, Text, useWindowDimensions
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { useCoinAnimation } from '../customHooks/useCoinAnimation';
 import { IntroDiagram } from '../components/IntroDiagram';
 import { PickableCoin } from '../components/PickableCoin';
 
@@ -24,9 +22,7 @@ TODOs (in no particular order):
     reaction to show when a draggable is over the wrong basket.
   2. Animate the tree boughs to sway slightly
   3. Animate the coins to sway slightly
-  4. Fix the coin start locations
-    - spawn btwn 3 and 6 coins, give each one a box it can spawn inside of, so
-    that it's starting position is random but contained and coins don't overlap.
+  4. done, fixed coin spawns and positioning
   5. Animate the coin -> basket deposit release action.
   6. Sound?
   7. Add an intro and outro screen/modal
@@ -49,18 +45,38 @@ TODOs (in no particular order):
       game mechanic would be to let things fall and move the basket to get them (too advanced?)
 */
 
-const introDiagram = require('../../assets/diagrams/money-tree-diagram.png');
-const background = require('../../assets/landscape/home-tree-2.png');
-const canopy = require('../../assets/trees/canopy-layered-paper.png');
-const basket = require('../../assets/misc/basket.png');
+function getCoins(windowH, windowW) {
+  let coinCount = Math.floor(Math.random() * 2) + 4; // spawn 4-5 coins
+  const xOffset = Math.floor(windowW / (coinCount + 1));
+  const yOffset = Math.floor((windowH / 12));
+  const coinCoords = [];
+
+  let randomizedOffset = (radius = 10) => Math.floor(Math.random() * radius) * (Math.random() > .5 ? 1 : -1);
+  for (let i = 1; i <= coinCount; i++) {
+    coinCoords.push({
+      x: (xOffset * i) + randomizedOffset(),
+      y: yOffset + randomizedOffset()
+    });
+  }
+  console.log(" Coin Coords: ", coinCoords);
+  return coinCoords;
+}
+
 
 export function HomeTree({ navigation }) {
+  const { height, width } = useWindowDimensions();
+  const introDiagram = require('../../assets/diagrams/money-tree-diagram.png');
+  const background = require('../../assets/landscape/home-tree-2.png');
+  const canopy = require('../../assets/trees/canopy-layered-paper.png');
+  const basket = require('../../assets/misc/basket.png');
 
   const [viewIntro, setViewIntro] = useState(true);
   const [basketCount, setBasketCount] = useState(0);
+  const [coins, setCoins] = useState(getCoins(height, width));
 
   // passed from component to hook
-  function updateBasket() {
+  function updateBasket(coinOffset) {
+    setCoins(coins => coins.filter((c, i) => c[0] !== coinOffset));
     setBasketCount(basketCount => basketCount + 1);
   }
 
@@ -79,16 +95,14 @@ export function HomeTree({ navigation }) {
       style={styles.background}>
       <View style={styles.container}>
         <Image resizeMode="contain" style={styles.canopy} source={canopy} />
-        <View style={styles.coins}>
-        <PickableCoin updateBasket={updateBasket} />
-        <PickableCoin updateBasket={updateBasket} />
-        <PickableCoin updateBasket={updateBasket} />
-        <PickableCoin updateBasket={updateBasket} />
-
-        </View>
+        {coins.map((coords, i) => (
+          <PickableCoin
+            key={`coin-${i}-${coords.x}`}
+            coords={coords}
+            updateBasket={() => updateBasket(coords.x)} />
+        ))}
         <Image resizeMode="contain" style={styles.basketOne} source={basket} />
         <Text style={styles.basketCount}>${basketCount}</Text>
-        {/* <Image resizeMode="contain" style={styles.basketTwo} source={basket} /> */}
       </View>
 
       <StatusBar style="auto" hidden={true} />
@@ -137,12 +151,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Verdana'
   },
   coins: {
-    position: 'absolute',
     top: 15,
-    width: '80%',
-    height: 120,
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    width: '100%',
+    // height: 120,
+    // justifyContent: 'space-around',
+    // alignItems: 'center',
     flexDirection: 'row',
+    // borderWidth: 1
   },
 });
