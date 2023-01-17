@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, ImageBackground, Image, StyleSheet, Animated, Text } from 'react-native';
+import { View, ImageBackground, Image, StyleSheet, Animated, Text, Pressable } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SnapTo } from '../components/SnapTo';
 import SpringToOrigin from '../components/SpringToOrigin';
@@ -21,6 +21,8 @@ TODOs (in no particular order):
   2. Animate the tree boughs to sway slightly
   3. Animate the coins to sway slightly
   4. Fix the coin start locations
+    - spawn btwn 3 and 6 coins, give each one a box it can spawn inside of, so
+    that it's starting position is random but contained and coins don't overlap.
   5. Animate the coin -> basket deposit release action.
   6. Sound?
   7. Add an intro and outro screen/modal
@@ -43,7 +45,12 @@ TODOs (in no particular order):
       game mechanic would be to let things fall and move the basket to get them (too advanced?)
 */
 
-export function HomeTree() {
+export function HomeTree({ navigation }) {
+  const introDiagram = require('../../assets/diagrams/money-tree-diagram.png');
+  const [viewIntro, setViewIntro] = useState(true);
+
+
+
   const background = require('../../assets/landscape/home-tree-2.png');
   const canopy = require('../../assets/trees/canopy-layered-paper.png');
   const basket = require('../../assets/misc/basket.png');
@@ -64,6 +71,51 @@ export function HomeTree() {
     setBasketCount(basketCount => basketCount + 1);
   }
 
+
+  if (viewIntro) return (
+    <ImageBackground
+      source={introDiagram}
+      resizeMode="contain"
+      style={[styles.background, { backgroundColor: '#F8EFBA' }]}>
+      <View style={{
+        flex: 1,
+        flexDirection:'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '90%',
+         }}>
+
+        <Pressable style={{
+          width: 60,
+          height: 60,
+          borderRadius: 50,
+          borderWidth: 3,
+          borderColor: '#b33939',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#ff7979'
+        }}
+          title='✗' onPress={() => navigation.navigate('Home')}>
+          <Text style={{ fontSize: 40, color: '#b33939' }}>✗</Text>
+        </Pressable>
+
+        <Pressable style={{
+          width: 60,
+          height: 60,
+          borderRadius: 50,
+          borderWidth: 3,
+          borderColor: '#30693D',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#BDD176'
+        }}
+          title='✓' onPress={() => setViewIntro(false)}>
+          <Text style={{ fontSize: 40, color: '#30693D' }}>✓</Text>
+        </Pressable>
+      </View>
+    </ImageBackground>);
+
+
   return (
     <ImageBackground
       source={background}
@@ -76,6 +128,7 @@ export function HomeTree() {
           {showingOne ? (
             <Animated.View
               style={{
+                top: 30, left: -100,
                 transform: [{ translateX: coinOne.x }, { translateY: coinOne.y }]
               }}
               {...coinOneResponder.panHandlers}
@@ -88,6 +141,7 @@ export function HomeTree() {
           {showingTwo ? (
             <Animated.View
               style={{
+                top: 35, left: 110,
                 transform: [{ translateX: coinTwo.x }, { translateY: coinTwo.y }]
               }}
               {...coinTwoResponder.panHandlers}
@@ -100,6 +154,7 @@ export function HomeTree() {
           {showingThree ? (
             <Animated.View
               style={{
+                top: 40, left: -90,
                 transform: [{ translateX: coinThree.x }, { translateY: coinThree.y }]
               }}
               {...coinThreeResponder.panHandlers}
@@ -112,6 +167,7 @@ export function HomeTree() {
           {showingFour ? (
             <Animated.View
               style={{
+                top: 45, left: 100,
                 transform: [{ translateX: coinFour.x }, { translateY: coinFour.y }]
               }}
               {...coinFourResponder.panHandlers}
@@ -189,10 +245,11 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   coins: {
-    top: -110,
-    width: 500,
-    justifyContent: 'space-around',
-    flexDirection: 'row'
+    // top: -110,
+    // width: 500,
+    // justifyContent: 'space-around',
+    flexDirection: 'row',
+    flex: 1,
   },
   coinText: {
     top: -44,
