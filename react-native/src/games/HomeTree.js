@@ -31,10 +31,7 @@ TODOs (in no particular order):
       basic: show little diagram of money going to wallet
       extra: screen where you trace the number for how many coins you
           picked, help to reinforce quantity/counting
-  8. State management in this component is awful, DRY it up!
-    a. create coin component
-    b. place pan responder logic in component and prop drill basket count.
-    c. figure out a more generic showing/not-showing system
+  8. Done - extracted coin logic to a custom hook and component
   9. Need a 'You Win' type modal to announce the end of the game.
   10. Put only the dollar sign on basket to signify 'basket for money' then make the
       count bigger and show it on the side? We might be using baskets elsewhere
@@ -66,6 +63,7 @@ function getCoins(windowH, windowW) {
 export function HomeTree({ navigation }) {
   const { height, width } = useWindowDimensions();
   const introDiagram = require('../../assets/diagrams/money-tree-diagram.png');
+  const outroDiagram = require('../../assets/diagrams/money-tree-outro-2.png');
   const background = require('../../assets/landscape/home-tree-2.png');
   const canopy = require('../../assets/trees/canopy-layered-paper.png');
   const basket = require('../../assets/misc/basket.png');
@@ -83,9 +81,16 @@ export function HomeTree({ navigation }) {
 
   if (viewIntro) return (
     <IntroDiagram
-      navigateHome={() => navigation.navigate('Home')}
+      navigateBack={() => navigation.navigate('Home')}
       diagram={introDiagram}
-      proceedToGame={() => setViewIntro(false)} />
+      navigateTo={() => setViewIntro(false)} />
+  );
+
+  if (basketCount === coins.length) return (
+    <IntroDiagram
+      navigateBack={() => navigation.navigate('HomeTree')}
+      diagram={outroDiagram}
+      navigateTo={() => navigation.navigate('Home')} />
   );
 
   return (

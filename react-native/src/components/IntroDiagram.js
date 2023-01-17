@@ -3,7 +3,7 @@ import { ImageBackground, View, Text, Pressable } from "react-native";
 /**
  * Renders: a brief instructional diagram before a game
  */
-export function IntroDiagram({ navigateHome, diagram, proceedToGame }) {
+export function IntroDiagram({ navigateTo, navigateBack, diagram }) {
   return (
     <ImageBackground
       source={diagram}
@@ -32,7 +32,7 @@ export function IntroDiagram({ navigateHome, diagram, proceedToGame }) {
             justifyContent: 'center',
             backgroundColor: '#ff7979'
           }}
-            title='✗' onPress={navigateHome}>
+            title='✗' onPress={navigateBack}>
             <Text style={{ fontSize: 40, color: '#b33939' }}>✗</Text>
           </Pressable>
 
@@ -46,7 +46,7 @@ export function IntroDiagram({ navigateHome, diagram, proceedToGame }) {
             justifyContent: 'center',
             backgroundColor: '#BDD176'
           }}
-            title='✓' onPress={proceedToGame}>
+            title='✓' onPress={navigateTo}>
             <Text style={{ fontSize: 40, color: '#30693D' }}>✓</Text>
           </Pressable>
         </View>
