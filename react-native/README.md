@@ -13,8 +13,9 @@ Check out the videos below for quick clips of the app's progress.
 2. The 'Money Tree' - In this world, the money does grow on tress, but you'll need to pick it.
 - https://youtu.be/4-lGIOrjUN8
 
-3. Making progress on the money tree game. Not a lot changed on the surface, but I had to do quite a bit of coding for this one.
-- https://youtu.be/fpEBioA6ncs
+3. Finished off the money tree game for now. I added a placeholder intro and outro transition screeens, fixed the coins positioning, and refactored the code to be much more concise.
+- https://youtu.be/US6OMRaZVjc
+
 
 <img src="./assets/Screen%20Shot%202023-01-12%20at%2011.49.47%20PM.png" width="600px" />
 
