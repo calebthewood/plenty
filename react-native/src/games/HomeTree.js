@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { View, ImageBackground, Image, StyleSheet, Animated, Text, Pressable } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { SnapTo } from '../components/SnapTo';
-import SpringToOrigin from '../components/SpringToOrigin';
 import { useCoinAnimation } from '../customHooks/useCoinAnimation';
+import { IntroDiagram } from '../components/IntroDiagram';
 
 /*
 Thought: to make the game replayable, but keep some idea of money scarcity:
@@ -45,18 +44,16 @@ TODOs (in no particular order):
       game mechanic would be to let things fall and move the basket to get them (too advanced?)
 */
 
+const introDiagram = require('../../assets/diagrams/money-tree-diagram.png');
+const background = require('../../assets/landscape/home-tree-2.png');
+const canopy = require('../../assets/trees/canopy-layered-paper.png');
+const basket = require('../../assets/misc/basket.png');
+
 export function HomeTree({ navigation }) {
-  const introDiagram = require('../../assets/diagrams/money-tree-diagram.png');
+
   const [viewIntro, setViewIntro] = useState(true);
-
-
-
-  const background = require('../../assets/landscape/home-tree-2.png');
-  const canopy = require('../../assets/trees/canopy-layered-paper.png');
-  const basket = require('../../assets/misc/basket.png');
-  const dollarSign = require('../../assets/misc/dollar-sign-pink.png');
   const [basketCount, setBasketCount] = useState(0);
-
+  // Refactor this abomination asap.
   const [coinOne, coinOneResponder] = useCoinAnimation(() => handleRelease(() => setShowingOne(false)));
   const [showingOne, setShowingOne] = useState(true);
   const [coinTwo, coinTwoResponder] = useCoinAnimation(() => handleRelease(() => setShowingTwo(false)));
@@ -73,47 +70,10 @@ export function HomeTree({ navigation }) {
 
 
   if (viewIntro) return (
-    <ImageBackground
-      source={introDiagram}
-      resizeMode="contain"
-      style={[styles.background, { backgroundColor: '#F8EFBA' }]}>
-      <View style={{
-        flex: 1,
-        flexDirection:'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '90%',
-         }}>
-
-        <Pressable style={{
-          width: 60,
-          height: 60,
-          borderRadius: 50,
-          borderWidth: 3,
-          borderColor: '#b33939',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#ff7979'
-        }}
-          title='✗' onPress={() => navigation.navigate('Home')}>
-          <Text style={{ fontSize: 40, color: '#b33939' }}>✗</Text>
-        </Pressable>
-
-        <Pressable style={{
-          width: 60,
-          height: 60,
-          borderRadius: 50,
-          borderWidth: 3,
-          borderColor: '#30693D',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#BDD176'
-        }}
-          title='✓' onPress={() => setViewIntro(false)}>
-          <Text style={{ fontSize: 40, color: '#30693D' }}>✓</Text>
-        </Pressable>
-      </View>
-    </ImageBackground>);
+  <IntroDiagram
+    navigateHome={() => navigation.navigate('Home')}
+    diagram={introDiagram}
+    proceedToGame={() => setViewIntro(false)}/>)
 
 
   return (
