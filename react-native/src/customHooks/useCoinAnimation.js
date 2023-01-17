@@ -1,16 +1,37 @@
 import { useRef } from "react";
-import { PanResponder, Animated} from "react-native";
+import { PanResponder, Animated, useWindowDimensions } from "react-native";
 
+// Consider connecting this to the coin sizes in game component, 1SoT
+const COIN_RADIUS = 30
+const BASKET_WIDTH = 140 + COIN_RADIUS;
+const BASKET_HEIGHT = 120 + COIN_RADIUS;
 
 /**
  * Creates and returns an Animated ValueXY and accompanying PanResponder
  * to animate a view that will snap back to it's origin unless released within a
  * box of coordinates.
  *
+ * TODO: make more generic, 'drag to point and dissapear' animation
+ *
  * @param {*} props
  * @returns
  */
-export function useCoinAnimation(onRelease) {
+export function useCoinAnimation(hideCoin, updateBasket) {
+  const { height, width } = useWindowDimensions();
+
+  function coinInBasket(x,y) {
+    console.log("*** X: ", x, " Y: ", y);
+    const top = height - BASKET_HEIGHT;
+    const bottom = height;
+    const left = width / 2 - BASKET_WIDTH / 2;
+    const right = width / 2 + BASKET_WIDTH / 2;
+    console.log("*** basket L: ", left, " basket R: ", right);
+    console.log("*** basket T: ", top, " basket B: ", bottom);
+    console.log("*** window w: ", width, " window h: ", height);
+    console.log("Coin In Basket: ", (x > left && x < right && y < bottom && y > top));
+    return (x > left && x < right && y < bottom && y > top)
+  }
+
   const pan = useRef(new Animated.ValueXY()).current;
 
   const panResponder = useRef(
@@ -29,19 +50,19 @@ export function useCoinAnimation(onRelease) {
         ], { useNativeDriver: false }
       ),
       onPanResponderRelease: (evt, { moveX, moveY }) => {
-        console.log("*** moveX: ", moveX, " moveY: ", moveY);
-
-        //if touching basket (method will need to be improved)
-        if (moveX > 271 && moveX < 430 && moveY > 272 && moveY < 360) {
-          // disappear
-          // update state with += $1
-          onRelease();
-        } else {
-          Animated.spring(pan, {
-            toValue: { x: 0, y: 0 },
-            useNativeDriver: false,
-          }).start();
-        }
+        // useWindowDimensions to check if coin is within the height and width
+        // of the bottom center of the screen. ie, where the basket will be
+          if (coinInBasket(moveX,moveY)) {
+            // disappear
+            hideCoin()
+            // update state with += $1
+            updateBasket()
+          } else {
+            Animated.spring(pan, {
+              toValue: { x: 0, y: 0 },
+              useNativeDriver: false,
+            }).start();
+          }
       }
     })
   ).current;

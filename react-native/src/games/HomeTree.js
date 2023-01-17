@@ -1,8 +1,13 @@
 import { useState } from 'react';
-import { View, ImageBackground, Image, StyleSheet, Animated, Text, Pressable } from 'react-native';
+import {
+  View, ImageBackground, Image,
+  StyleSheet, Animated, Text,
+  Pressable, useWindowDimensions
+} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useCoinAnimation } from '../customHooks/useCoinAnimation';
 import { IntroDiagram } from '../components/IntroDiagram';
+import { PickableCoin } from '../components/PickableCoin';
 
 /*
 Thought: to make the game replayable, but keep some idea of money scarcity:
@@ -53,28 +58,19 @@ export function HomeTree({ navigation }) {
 
   const [viewIntro, setViewIntro] = useState(true);
   const [basketCount, setBasketCount] = useState(0);
-  // Refactor this abomination asap.
-  const [coinOne, coinOneResponder] = useCoinAnimation(() => handleRelease(() => setShowingOne(false)));
-  const [showingOne, setShowingOne] = useState(true);
-  const [coinTwo, coinTwoResponder] = useCoinAnimation(() => handleRelease(() => setShowingTwo(false)));
-  const [showingTwo, setShowingTwo] = useState(true);
-  const [coinThree, coinThreeResponder] = useCoinAnimation(() => handleRelease(() => setShowingThree(false)));
-  const [showingThree, setShowingThree] = useState(true);
-  const [coinFour, coinFourResponder] = useCoinAnimation(() => handleRelease(() => setShowingFour(false)));
-  const [showingFour, setShowingFour] = useState(true);
 
-  function handleRelease(callback) {
-    callback();
+  // passed from component to hook
+  function updateBasket() {
     setBasketCount(basketCount => basketCount + 1);
   }
 
 
   if (viewIntro) return (
-  <IntroDiagram
-    navigateHome={() => navigation.navigate('Home')}
-    diagram={introDiagram}
-    proceedToGame={() => setViewIntro(false)}/>)
-
+    <IntroDiagram
+      navigateHome={() => navigation.navigate('Home')}
+      diagram={introDiagram}
+      proceedToGame={() => setViewIntro(false)} />
+  );
 
   return (
     <ImageBackground
@@ -84,62 +80,13 @@ export function HomeTree({ navigation }) {
       <View style={styles.container}>
         <Image resizeMode="contain" style={styles.canopy} source={canopy} />
         <View style={styles.coins}>
-
-          {showingOne ? (
-            <Animated.View
-              style={{
-                top: 30, left: -100,
-                transform: [{ translateX: coinOne.x }, { translateY: coinOne.y }]
-              }}
-              {...coinOneResponder.panHandlers}
-            >
-              <View style={styles.box} />
-              <Text style={styles.coinText}>$</Text>
-            </Animated.View>)
-            : null}
-
-          {showingTwo ? (
-            <Animated.View
-              style={{
-                top: 35, left: 110,
-                transform: [{ translateX: coinTwo.x }, { translateY: coinTwo.y }]
-              }}
-              {...coinTwoResponder.panHandlers}
-            >
-              <View style={styles.box} />
-              <Text style={styles.coinText}>$</Text>
-            </Animated.View>)
-            : null}
-
-          {showingThree ? (
-            <Animated.View
-              style={{
-                top: 40, left: -90,
-                transform: [{ translateX: coinThree.x }, { translateY: coinThree.y }]
-              }}
-              {...coinThreeResponder.panHandlers}
-            >
-              <View style={styles.box} />
-              <Text style={styles.coinText}>$</Text>
-            </Animated.View>)
-            : null}
-
-          {showingFour ? (
-            <Animated.View
-              style={{
-                top: 45, left: 100,
-                transform: [{ translateX: coinFour.x }, { translateY: coinFour.y }]
-              }}
-              {...coinFourResponder.panHandlers}
-            >
-              <View style={styles.box} />
-              <Text style={styles.coinText}>$</Text>
-            </Animated.View>)
-            : null}
+        <PickableCoin updateBasket={updateBasket} />
+        <PickableCoin updateBasket={updateBasket} />
+        <PickableCoin updateBasket={updateBasket} />
+        <PickableCoin updateBasket={updateBasket} />
 
         </View>
         <Image resizeMode="contain" style={styles.basketOne} source={basket} />
-        {/* <Image resizeMode="contain" style={styles.dollarSign} source={dollarSign} /> */}
         <Text style={styles.basketCount}>${basketCount}</Text>
         {/* <Image resizeMode="contain" style={styles.basketTwo} source={basket} /> */}
       </View>
@@ -148,7 +95,6 @@ export function HomeTree({ navigation }) {
     </ImageBackground>
   );
 }
-
 
 const styles = StyleSheet.create({
   background: {
@@ -178,61 +124,25 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     top: 240,
-    // left: 300,
     width: 140,
     height: 130,
     alignSelf: 'center',
-    // borderWidth: 1,
   },
   basketCount: {
     position: 'absolute',
-    // left: 320,
     top: 314,
     alignSelf: 'center',
     fontSize: 32,
     color: '#DF8264',
     fontFamily: 'Verdana'
   },
-  dollarSign: {
-    position: 'absolute',
-    flex: 1,
-    top: 324,
-    left: 312,
-
-    width: 20,
-    height: 25,
-    alignSelf: 'center',
-    // borderWidth: 1,
-  },
   coins: {
-    // top: -110,
-    // width: 500,
-    // justifyContent: 'space-around',
+    position: 'absolute',
+    top: 15,
+    width: '80%',
+    height: 120,
+    justifyContent: 'space-around',
+    alignItems: 'center',
     flexDirection: 'row',
-    flex: 1,
   },
-  coinText: {
-    top: -44,
-    left: 22,
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#d57e08",
-  },
-  box: {
-    height: 60,
-    width: 60,
-    backgroundColor: "#ffbd0b",
-    borderRadius: 100,
-
-    shadowOffset: { width: -2, height: 4 },
-    shadowColor: "#212121",
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    borderWidth: 4,
-
-    borderTopColor: "#ffd84c",
-    borderLeftColor: "#ffd84c",
-    borderRightColor: "#d57e08",
-    borderBottomColor: "#d57e08",
-  }
 });
