@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Pressable, View, Image, StyleSheet } from 'react-native';
 
 
-export function ButtonUseMoney() {
+export function ButtonUseMoney({ navigateTo }) {
 
   const [pressed, setPressed] = useState(false);
   const marketImg = require('../../assets/structures/market-stall-1.png');
@@ -12,7 +12,10 @@ export function ButtonUseMoney() {
     <Pressable
       accessibilityLabel="Visit your investment"
       onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
+      onPressOut={() => {
+        setPressed(false)
+        navigateTo('TheMarket')
+      }}
       style={pressed ? StyleSheet.compose(
         styles.container, styles.pressed)
         : styles.container}>

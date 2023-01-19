@@ -40,7 +40,7 @@ export function HomeScreen({ navigation }) {
         </View>
 
         <View style={styles.useMoney}>
-          <ButtonUseMoney />
+          <ButtonUseMoney navigateTo={handleNavigation}/>
         </View>
 
         <View style={styles.wallet}>
