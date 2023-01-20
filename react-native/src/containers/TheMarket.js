@@ -1,14 +1,26 @@
-import { ImageBackground, StyleSheet, View } from "react-native";
+import { ImageBackground, StyleSheet, View, Pressable, Animated } from "react-native";
 import { MarketFigure } from "../components/MarketFigure";
+import { useAnimatedList } from "../customHooks/useAnimatedList";
+
+{/* <MarketFigure bubbleImg={dnaImg} figureImg={biologistGirl} />,
+<MarketFigure bubbleImg={kelpImg} figureImg={raincoatGirl} />,
+<MarketFigure bubbleImg={mammothImg} figureImg={scientistBoy} /> */}
 
 export function TheMarket({ navigation }) {
+  const investors = [{
+    figure: require('../../assets/figures/figure-girl-doctor-2.png'),
+    idea: require('../../assets/misc/word-bubble-dna.png'),
+  }, {
+    figure: require('../../assets/figures/figure-girl-water.png'),
+    idea: require('../../assets/misc/word-bubble-kelp.png'),
+  }, {
+    figure: require('../../assets/figures/figure-arctic-boy.png'),
+    idea: require('../../assets/misc/word-bubble-mammoth.png'),
+  }];
+
   const background = require('../../assets/landscape/market-landscape-1.png');
-  const biologistGirl = require('../../assets/figures/figure-girl-doctor-2.png');
-  const raincoatGirl = require('../../assets/figures/figure-girl-water.png');
-  const scientistBoy = require('../../assets/figures/figure-arctic-boy.png');
-  const dnaImg = require('../../assets/misc/word-bubble-dna.png');
-  const kelpImg = require('../../assets/misc/word-bubble-kelp.png');
-  const mammothImg = require('../../assets/misc/word-bubble-mammoth.png');
+  const [animations, setSelected] = useAnimatedList();
+
   return (
     <ImageBackground
       source={background}
@@ -16,9 +28,15 @@ export function TheMarket({ navigation }) {
       style={styles.background}>
       <View style={styles.container}>
         <View style={styles.figures}>
-          <MarketFigure bubbleImg={dnaImg} figureImg={biologistGirl} />
-          <MarketFigure bubbleImg={kelpImg} figureImg={raincoatGirl} />
-          <MarketFigure bubbleImg={mammothImg} figureImg={scientistBoy} />
+          {investors.map((investor, index) => (
+            <MarketFigure
+              key={"figures" + index}
+              investor={investor}
+              animations={animations}
+              setSelected={() => setSelected(index)}
+              index={index}
+            />
+          ))}
         </View>
         <View style={styles.ground}></View>
       </View>

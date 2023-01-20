@@ -1,16 +1,21 @@
-import { Image, View, StyleSheet, Pressable } from "react-native";
+import { Image, View, StyleSheet, Pressable, Animated } from "react-native";
 
 /** Accepts a a relative path and renders an image of a figure sized
  * for the an interactive, up- close view.
  *
  */
-export function MarketFigure({ figureImg, bubbleImg }) {
-  const wordBubble = require('../../assets/misc/word-bubble-generic-idea.png')
+export function MarketFigure({ investor, animations, setSelected, index }) {
+  const wordBubble = require('../../assets/misc/word-bubble-generic-idea.png');
   return (
-    <Pressable >
-      <Image resizeMode="contain" style={styles.wordBubble} source={bubbleImg}></Image>
-      <Image resizeMode="contain" style={styles.figure} source={figureImg}></Image>
-      <View style={styles.shadow}></View>
+    <Pressable onPress={setSelected}>
+      <Animated.View
+        style={{
+          transform: [{ scale: animations[index] }]
+        }}>
+        <Image resizeMode="contain" style={styles.wordBubble} source={investor.idea}></Image>
+        <Image resizeMode="contain" style={styles.figure} source={investor.figure}></Image>
+        <View style={styles.shadow}></View>
+      </Animated.View>
     </Pressable>);
 }
 
