@@ -16,6 +16,11 @@ Check out the videos below for quick clips of the app's progress.
 3. Finished off the money tree game for now. I added a placeholder intro and outro transition screeens, fixed the coins positioning, and refactored the code to be much more concise.
 - https://youtu.be/US6OMRaZVjc
 
+4. Started work on 'The Market'. This will be where players bring their hard earned coin to spend on exciting new investments. These "investments" will then
+pop-up in the forest on the overworld map where the player can interact with the
+investor for a short story and minigames. Anyway, lots more work left to do!
+- https://youtu.be/ODxlraXka6U
+
 
 <img src="./assets/Screen%20Shot%202023-01-12%20at%2011.49.47%20PM.png" width="600px" />
 
