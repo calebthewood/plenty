@@ -3,9 +3,9 @@ import { MarketFigure } from "../components/MarketFigure";
 
 export function TheMarket({ navigation }) {
   const background = require('../../assets/landscape/market-landscape-1.png');
-  const biologistGirl = require('../../assets/figures/figure-marine-biologist.png');
-  const raincoatGirl = require('../../assets/figures/figure-girl-fishing.png');
-  const scientistBoy = require('../../assets/figures/figure-scientist-boy.png');
+  const biologistGirl = require('../../assets/figures/figure-girl-doctor-2.png');
+  const raincoatGirl = require('../../assets/figures/figure-girl-water.png');
+  const scientistBoy = require('../../assets/figures/figure-arctic-boy.png');
 
   return (
     <ImageBackground
@@ -51,11 +51,13 @@ const styles = StyleSheet.create({
     borderColor: '#EAB543',
   },
   figures: {
-    width: '90%',
+    position: 'absolute',
+    width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    alignItems: 'flex-end',
-    top: 20,
+    alignItems: 'flex-start',
+    bottom: 20,
+    left: 10,
     zIndex: 2,
     // borderWidth: 1,
   },

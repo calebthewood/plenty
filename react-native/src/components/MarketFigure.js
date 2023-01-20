@@ -3,14 +3,13 @@ import { Image, View, StyleSheet, Pressable } from "react-native";
 /** Accepts a a relative path and renders an image of a figure sized
  * for the an interactive, up- close view.
  *
- * TODO:
- *  1. Add shadow
  */
 export function MarketFigure({ figureImg }) {
+  const wordBubble = require('../../assets/misc/word-bubble-generic-idea.png')
   return (
     <Pressable >
+      <Image resizeMode="contain" style={styles.wordBubble} source={wordBubble}></Image>
       <Image resizeMode="contain" style={styles.figure} source={figureImg}></Image>
-
       <View style={styles.shadow}></View>
     </Pressable>);
 }
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   figure: {
-    height: 200,
+    height: 180,
     width: 150,
     // borderWidth: 1,
     alignSelf: 'flex-end',
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 60,
     width: 60,
-    top: 170,
+    top: 150,
     // left: 40,
     shadowColor: 'black',
     shadowOffset: { width: -5, height: -5 },
@@ -46,5 +45,11 @@ const styles = StyleSheet.create({
     transform: [
       { rotate: "-30deg" },
       { skewX: '45deg' }]
+  },
+  wordBubble: {
+    // borderWidth: 1,
+    width: 90,
+    height: 90,
+    left: -20,
   }
 });
