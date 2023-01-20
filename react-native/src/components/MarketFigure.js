@@ -4,11 +4,11 @@ import { Image, View, StyleSheet, Pressable } from "react-native";
  * for the an interactive, up- close view.
  *
  */
-export function MarketFigure({ figureImg }) {
+export function MarketFigure({ figureImg, bubbleImg }) {
   const wordBubble = require('../../assets/misc/word-bubble-generic-idea.png')
   return (
     <Pressable >
-      <Image resizeMode="contain" style={styles.wordBubble} source={wordBubble}></Image>
+      <Image resizeMode="contain" style={styles.wordBubble} source={bubbleImg}></Image>
       <Image resizeMode="contain" style={styles.figure} source={figureImg}></Image>
       <View style={styles.shadow}></View>
     </Pressable>);
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 60,
     width: 60,
-    top: 150,
+    bottom: -25,
     // left: 40,
     shadowColor: 'black',
     shadowOffset: { width: -5, height: -5 },

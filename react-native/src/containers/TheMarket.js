@@ -6,7 +6,9 @@ export function TheMarket({ navigation }) {
   const biologistGirl = require('../../assets/figures/figure-girl-doctor-2.png');
   const raincoatGirl = require('../../assets/figures/figure-girl-water.png');
   const scientistBoy = require('../../assets/figures/figure-arctic-boy.png');
-
+  const dnaImg = require('../../assets/misc/word-bubble-dna.png');
+  const kelpImg = require('../../assets/misc/word-bubble-kelp.png');
+  const mammothImg = require('../../assets/misc/word-bubble-mammoth.png');
   return (
     <ImageBackground
       source={background}
@@ -14,9 +16,9 @@ export function TheMarket({ navigation }) {
       style={styles.background}>
       <View style={styles.container}>
         <View style={styles.figures}>
-          <MarketFigure figureImg={biologistGirl} />
-          <MarketFigure figureImg={raincoatGirl} />
-          <MarketFigure figureImg={scientistBoy} />
+          <MarketFigure bubbleImg={dnaImg} figureImg={biologistGirl} />
+          <MarketFigure bubbleImg={kelpImg} figureImg={raincoatGirl} />
+          <MarketFigure bubbleImg={mammothImg} figureImg={scientistBoy} />
         </View>
         <View style={styles.ground}></View>
       </View>
