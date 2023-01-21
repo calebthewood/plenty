@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet, View, Pressable, Animated } from "react-native";
+import { ImageBackground, StyleSheet, View, Pressable, Text } from "react-native";
 import { MarketFigure } from "../components/MarketFigure";
 import { useAnimatedList } from "../customHooks/useAnimatedList";
 
@@ -20,17 +20,27 @@ export function TheMarket({ navigation }) {
 
   const background = require('../../assets/landscape/market-landscape-1.png');
   const animatedValues = useAnimatedList();
+  const resetFigures = animatedValues[3];
+
+  function handleReset(){
+    resetFigures(true)
+    console.log('hit')
+  }
 
   return (
     <ImageBackground
       source={background}
       resizeMode="cover"
       style={styles.background}>
+      <Pressable
+        style={styles.figureReset}
+        onPressIn={() => resetFigures(true)}
+        onPressOut={() => resetFigures(false)}><Text>X</Text></Pressable>
       <View style={styles.container}>
         <View style={styles.figures}>
           {investors.map((investor, index) => (
             <MarketFigure
-              key={"figures" + index}
+              key={"figure-" + index}
               investor={investor}
               index={index}
               animatedValues={animatedValues}
@@ -78,6 +88,14 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: 10,
     zIndex: 2,
-    borderWidth: 1,
+    // borderWidth: 1,
   },
+  figureReset: {
+    position: 'absolute',
+    right: 20,
+    top: 20,
+    height: 30,
+    width: 30,
+    zIndex:4
+  }
 });

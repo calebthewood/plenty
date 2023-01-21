@@ -9,7 +9,6 @@ export function MarketFigure({ investor, index, animatedValues }) {
   const [scaleAnimations, translateAnimations, setSelected] = animatedValues;
 
   function handlePress(evt) {
-    console.log("################### onPress evt: \n", evt.target);
     setSelected(index);
   }
 
@@ -38,8 +37,8 @@ const styles = StyleSheet.create({
   figure: {
     height: 180,
     width: 150,
-    borderWidth: 1,
-    borderColor: '#FD7272',
+    // borderWidth: 1,
+    // borderColor: '#FD7272',
     // alignSelf: 'flex-end',
     zIndex: 2,
   },
