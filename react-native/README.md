@@ -21,6 +21,10 @@ pop-up in the forest on the overworld map where the player can interact with the
 investor for a short story and minigames. Anyway, lots more work left to do!
 - https://youtu.be/ODxlraXka6U
 
+5. Got the first of a few animations down. You can now cycle through figures
+and their investments. Next I plan on animating the ground, the idea bubble, and bringing in 2 additional panels.
+- https://youtu.be/7IL4crgaxb8
+
 
 <img src="./assets/Screen%20Shot%202023-01-12%20at%2011.49.47%20PM.png" width="600px" />
 
