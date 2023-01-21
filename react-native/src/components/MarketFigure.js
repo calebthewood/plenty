@@ -1,22 +1,32 @@
 import { Image, View, StyleSheet, Pressable, Animated } from "react-native";
+// const wordBubble = require('../../assets/misc/word-bubble-generic-idea.png');
 
-/** Accepts a a relative path and renders an image of a figure sized
- * for the an interactive, up- close view.
- *
+/**
+ * Renders an animated figure as part of a list to be
+ * used on the Investor screen.
  */
-export function MarketFigure({ investor, animations, setSelected, index }) {
-  const wordBubble = require('../../assets/misc/word-bubble-generic-idea.png');
+export function MarketFigure({ investor, index, animatedValues }) {
+  const [scaleAnimations, translateAnimations, setSelected] = animatedValues;
+
+  function handlePress(evt) {
+    console.log("################### onPress evt: \n", evt.target);
+    setSelected(index);
+  }
+
   return (
-    <Pressable onPress={setSelected}>
-      <Animated.View
-        style={{
-          transform: [{ scale: animations[index] }]
-        }}>
+    <Animated.View
+      style={{
+        transform: [
+          { scale: scaleAnimations[index] }
+          , { translateX: translateAnimations[index] }
+        ]
+      }}>
+      <Pressable onPress={handlePress}>
         <Image resizeMode="contain" style={styles.wordBubble} source={investor.idea}></Image>
         <Image resizeMode="contain" style={styles.figure} source={investor.figure}></Image>
         <View style={styles.shadow}></View>
-      </Animated.View>
-    </Pressable>);
+      </Pressable>
+    </Animated.View>);
 }
 
 const styles = StyleSheet.create({
@@ -28,8 +38,9 @@ const styles = StyleSheet.create({
   figure: {
     height: 180,
     width: 150,
-    // borderWidth: 1,
-    alignSelf: 'flex-end',
+    borderWidth: 1,
+    borderColor: '#FD7272',
+    // alignSelf: 'flex-end',
     zIndex: 2,
   },
   shadow: {

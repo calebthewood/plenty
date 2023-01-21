@@ -19,7 +19,7 @@ export function TheMarket({ navigation }) {
   }];
 
   const background = require('../../assets/landscape/market-landscape-1.png');
-  const [animations, setSelected] = useAnimatedList();
+  const animatedValues = useAnimatedList();
 
   return (
     <ImageBackground
@@ -32,9 +32,8 @@ export function TheMarket({ navigation }) {
             <MarketFigure
               key={"figures" + index}
               investor={investor}
-              animations={animations}
-              setSelected={() => setSelected(index)}
               index={index}
+              animatedValues={animatedValues}
             />
           ))}
         </View>
@@ -79,6 +78,6 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: 10,
     zIndex: 2,
-    // borderWidth: 1,
+    borderWidth: 1,
   },
 });
