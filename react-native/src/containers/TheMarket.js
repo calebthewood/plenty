@@ -12,19 +12,19 @@ export function TheMarket({ navigation }) {
     idea: require('../../assets/misc/word-bubble-dna.png'),
     ideaDetail: "🧬 ➕ 💰 🟰 🧪",
     ideaTitle: "Scientific Breakthrough!",
-    cost: "⚫ ⚫",
+    cost: ['⚫', '⚫',],
   }, {
     figure: require('../../assets/figures/figure-girl-water.png'),
     idea: require('../../assets/misc/word-bubble-kelp.png'),
     ideaDetail: "🪸 ➕ 💰 🟰 ♻️🟢",
     ideaTitle: "Kelp-based clign-wrap!",
-    cost: "⚫ ⚫ ⚫",
+    cost: ['⚫', '⚫', '⚫',],
   }, {
     figure: require('../../assets/figures/figure-arctic-boy.png'),
     idea: require('../../assets/misc/word-bubble-mammoth.png'),
     ideaDetail: "💡 ➕ 💰 🟰 🦣",
     ideaTitle: "Bring Back the Whooly Mammoth!",
-    cost: "⚫ ⚫ ⚫ ⚫",
+    cost: ['⚫', '⚫', '⚫', '⚫',],
   }];
 
   const background = require('../../assets/landscape/market-landscape-1.png');
@@ -40,20 +40,23 @@ export function TheMarket({ navigation }) {
       <Pressable
         style={styles.figureReset}
         onPressIn={() => resetFigures(true)}
-        onPressOut={() => resetFigures(false)}><Text>X</Text></Pressable>
+        onPressOut={() => resetFigures(false)}><Text>X</Text>
+      </Pressable>
+
       {selected === null ? null :
         <View style={styles.ideaDetail}>
           <Text>{investors[selected].ideaTitle}</Text>
           <Text style={styles.tempDiagram}>{investors[selected].ideaDetail}</Text>
-        </View>
-      }
-      {selected === null ? null :
-        <View style={styles.costBin}>
-          <Text>Cost</Text>
-          <Text style={styles.costDiagram}>{investors[selected].cost}</Text>
-        </View>
-      }
+        </View>}
 
+      {selected === null ? null :
+        <View style={styles.costSection}>
+          <Text style={styles.costTitle}>Cost</Text>
+          <View style={styles.costBin} >
+            {investors[selected].cost.map((item, i) => (
+              <Text key={`${item}-${i}`} style={styles.costDiagram}>{item}</Text>))}
+          </View>
+        </View>}
 
       <View style={styles.container}>
         <View style={styles.figures}>
@@ -135,10 +138,10 @@ const styles = StyleSheet.create({
   tempDiagram: {
     fontSize: 40
   },
-  costBin: {
+  costSection: {
     position: 'absolute',
-    height: 140,
-    width: 200,
+    height: 260,
+    width: 80,
     left: 420,
     top: 10,
     backgroundColor: 'white',
@@ -146,9 +149,15 @@ const styles = StyleSheet.create({
     borderWidth: 9,
     borderRadius: 5,
     zIndex: 2,
-
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  costTitle: {
+    fontSize: 20,
+  },
+  costBin: {
+    justifyContent: "space-evenly",
+    height: 210,
   },
   costDiagram: {
     fontSize: 30,
