@@ -10,15 +10,21 @@ export function TheMarket({ navigation }) {
   const investors = [{
     figure: require('../../assets/figures/figure-girl-doctor-2.png'),
     idea: require('../../assets/misc/word-bubble-dna.png'),
-    ideaDetail: "",
+    ideaDetail: "🧬 ➕ 💰 🟰 🧪",
+    ideaTitle: "Scientific Breakthrough!",
+    cost: "⚫ ⚫",
   }, {
     figure: require('../../assets/figures/figure-girl-water.png'),
     idea: require('../../assets/misc/word-bubble-kelp.png'),
-    ideaDetail: "",
+    ideaDetail: "🪸 ➕ 💰 🟰 ♻️🟢",
+    ideaTitle: "Kelp-based clign-wrap!",
+    cost: "⚫ ⚫ ⚫",
   }, {
     figure: require('../../assets/figures/figure-arctic-boy.png'),
     idea: require('../../assets/misc/word-bubble-mammoth.png'),
-    ideaDetail: "",
+    ideaDetail: "💡 ➕ 💰 🟰 🦣",
+    ideaTitle: "Bring Back the Whooly Mammoth!",
+    cost: "⚫ ⚫ ⚫ ⚫",
   }];
 
   const background = require('../../assets/landscape/market-landscape-1.png');
@@ -37,8 +43,14 @@ export function TheMarket({ navigation }) {
         onPressOut={() => resetFigures(false)}><Text>X</Text></Pressable>
       {selected === null ? null :
         <View style={styles.ideaDetail}>
-          <Text>Idea Title</Text>
-          <Text style={styles.tempDiagram}>💡 ➕ 💰 🟰 🚀🌕</Text>
+          <Text>{investors[selected].ideaTitle}</Text>
+          <Text style={styles.tempDiagram}>{investors[selected].ideaDetail}</Text>
+        </View>
+      }
+      {selected === null ? null :
+        <View style={styles.costBin}>
+          <Text>Cost</Text>
+          <Text style={styles.costDiagram}>{investors[selected].cost}</Text>
         </View>
       }
 
@@ -101,7 +113,7 @@ const styles = StyleSheet.create({
   figureReset: {
     position: 'absolute',
     right: 20,
-    top: 20,
+    bottom: 10,
     height: 30,
     width: 30,
     zIndex: 4
@@ -122,5 +134,23 @@ const styles = StyleSheet.create({
   },
   tempDiagram: {
     fontSize: 40
+  },
+  costBin: {
+    position: 'absolute',
+    height: 140,
+    width: 200,
+    left: 420,
+    top: 10,
+    backgroundColor: 'white',
+    opacity: .9,
+    borderWidth: 9,
+    borderRadius: 5,
+    zIndex: 2,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  costDiagram: {
+    fontSize: 30,
   }
 });

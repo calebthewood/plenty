@@ -25,9 +25,9 @@ export function useAnimatedList() {
   ]).current;
 
   const translateAnimations = useRef([
-    new Animated.Value(0),
-    new Animated.Value(0),
-    new Animated.Value(0)
+    new Animated.ValueXY({x: 0, y: 0}),
+    new Animated.ValueXY({x: 0, y: 0}),
+    new Animated.ValueXY({x: 0, y: 0})
   ]).current;
 
 
@@ -88,17 +88,17 @@ export function useAnimatedList() {
           useNativeDriver: true
         }),
         Animated.timing(translateAnimations[selected], {
-          toValue: frontOffsets[selected],
+          toValue: {x: frontOffsets[selected], y: 0},
           duration: 200,
           useNativeDriver: true
         }),
         Animated.timing(translateAnimations[(selected + 1) % 3], {
-          toValue: backOffsets[(selected + 1) % 3][selected],
+          toValue: {x: backOffsets[(selected + 1) % 3][selected], y: 90},
           duration: 200,
           useNativeDriver: true
         }),
         Animated.timing(translateAnimations[(selected + 2) % 3], {
-          toValue: backOffsets[(selected + 2) % 3][selected],
+          toValue: {x: backOffsets[(selected + 2) % 3][selected], y: 90},
           duration: 200,
           useNativeDriver: true
         })

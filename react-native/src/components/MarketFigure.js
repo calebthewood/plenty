@@ -17,8 +17,9 @@ export function MarketFigure({ investor, index, animatedValues, selected }) {
       style={{
         height: 270, justifyContent: "flex-end",
         transform: [
-          { scale: scaleAnimations[index] }
-          , { translateX: translateAnimations[index] }
+          { scale: scaleAnimations[index] },
+          { translateX: translateAnimations[index].x },
+          { translateY: translateAnimations[index].y }
         ]
       }}>
       <Pressable onPress={handlePress}>
