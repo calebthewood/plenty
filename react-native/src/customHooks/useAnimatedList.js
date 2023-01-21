@@ -6,6 +6,10 @@ export function useAnimatedList() {
   const [selected, setSelected] = useState(null);
   const [reset, setReset] = useState(false);
 
+  /* A better way to do this requires knowing the coordinates of each figure
+  on the screen and calculating (window - current) + (window - new), but I
+  think that requires using the AnimatedLayout API rather than this. */
+
   // Custom offset values based on who is selected
   const frontOffsets = [30, -85, -200];
   //Each element is the set of offsets based on who is selected: 0,1,2
@@ -103,5 +107,5 @@ export function useAnimatedList() {
 
   }, [selected, reset]);
 
-  return [scaleAnimations, translateAnimations, setSelected, setReset];
+  return [scaleAnimations, translateAnimations, setSelected, setReset, selected];
 }

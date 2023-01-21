@@ -1,11 +1,11 @@
-import { Image, View, StyleSheet, Pressable, Animated } from "react-native";
+import { Image, View, StyleSheet, Pressable, Animated, Text } from "react-native";
 // const wordBubble = require('../../assets/misc/word-bubble-generic-idea.png');
 
 /**
  * Renders an animated figure as part of a list to be
  * used on the Investor screen.
  */
-export function MarketFigure({ investor, index, animatedValues }) {
+export function MarketFigure({ investor, index, animatedValues, selected }) {
   const [scaleAnimations, translateAnimations, setSelected] = animatedValues;
 
   function handlePress(evt) {
@@ -15,13 +15,17 @@ export function MarketFigure({ investor, index, animatedValues }) {
   return (
     <Animated.View
       style={{
+        height: 270, justifyContent: "flex-end",
         transform: [
           { scale: scaleAnimations[index] }
           , { translateX: translateAnimations[index] }
         ]
       }}>
       <Pressable onPress={handlePress}>
-        <Image resizeMode="contain" style={styles.wordBubble} source={investor.idea}></Image>
+        {selected == index ?
+          null :
+          <Image resizeMode="contain" style={styles.wordBubble} source={investor.idea}></Image>}
+
         <Image resizeMode="contain" style={styles.figure} source={investor.figure}></Image>
         <View style={styles.shadow}></View>
       </Pressable>
@@ -66,5 +70,18 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     left: -20,
+  },
+  ideaDetail: {
+    width: 200,
+    height: 90,
+    backgroundColor: 'white',
+    // position: 'absolute',
+    left: 20,
+    top: 5,
+    borderRadius: 5,
+    borderWidth: 3,
+    opacity: .9,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

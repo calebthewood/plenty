@@ -10,22 +10,21 @@ export function TheMarket({ navigation }) {
   const investors = [{
     figure: require('../../assets/figures/figure-girl-doctor-2.png'),
     idea: require('../../assets/misc/word-bubble-dna.png'),
+    ideaDetail: "",
   }, {
     figure: require('../../assets/figures/figure-girl-water.png'),
     idea: require('../../assets/misc/word-bubble-kelp.png'),
+    ideaDetail: "",
   }, {
     figure: require('../../assets/figures/figure-arctic-boy.png'),
     idea: require('../../assets/misc/word-bubble-mammoth.png'),
+    ideaDetail: "",
   }];
 
   const background = require('../../assets/landscape/market-landscape-1.png');
   const animatedValues = useAnimatedList();
   const resetFigures = animatedValues[3];
-
-  function handleReset(){
-    resetFigures(true)
-    console.log('hit')
-  }
+  const selected = animatedValues[4];
 
   return (
     <ImageBackground
@@ -36,6 +35,14 @@ export function TheMarket({ navigation }) {
         style={styles.figureReset}
         onPressIn={() => resetFigures(true)}
         onPressOut={() => resetFigures(false)}><Text>X</Text></Pressable>
+      {selected === null ? null :
+        <View style={styles.ideaDetail}>
+          <Text>Idea Title</Text>
+          <Text style={styles.tempDiagram}>💡 ➕ 💰 🟰 🚀🌕</Text>
+        </View>
+      }
+
+
       <View style={styles.container}>
         <View style={styles.figures}>
           {investors.map((investor, index) => (
@@ -44,6 +51,7 @@ export function TheMarket({ navigation }) {
               investor={investor}
               index={index}
               animatedValues={animatedValues}
+              selected={selected}
             />
           ))}
         </View>
@@ -96,6 +104,23 @@ const styles = StyleSheet.create({
     top: 20,
     height: 30,
     width: 30,
-    zIndex:4
+    zIndex: 4
+  },
+  ideaDetail: {
+    position: 'absolute',
+    height: 140,
+    width: 400,
+    left: 10,
+    top: 10,
+    backgroundColor: 'white',
+    opacity: .9,
+    borderWidth: 9,
+    borderRadius: 5,
+    zIndex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tempDiagram: {
+    fontSize: 40
   }
 });
