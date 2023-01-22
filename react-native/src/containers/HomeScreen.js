@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View, ImageBackground, StyleSheet } from 'react-native';
 import { ButtonTRM } from './ButtonTRM';
 import { ButtonCave } from './ButtonCave';
@@ -17,8 +18,21 @@ export function HomeScreen({ navigation }) {
   const backgroundMid = require('../../assets/landscape/demo-homescreen-mid-edit.png');
   const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
 
+  /* Putting off fully developing 'world' state for now. Idea is store the entire
+  state of one player's game in an object that lists wallet balance, investment
+  levels, investor story progress, etc and that object will be held in state to
+  determine how the world renders itself. For now I am keeping the minimal state
+  needed to render a playable demo.*/
+
+  const [investors, setInvestors] = useState(demoInvestors);
+  const [wallet, setWallet] = useState(5);
+
   function handleNavigation(route) {
-    navigation.navigate(route)
+    const params = {
+      investors: investors,
+      wallet: wallet,
+    };
+    navigation.navigate(route, params);
   }
 
   return (
@@ -40,7 +54,7 @@ export function HomeScreen({ navigation }) {
         </View>
 
         <View style={styles.useMoney}>
-          <ButtonUseMoney navigateTo={handleNavigation}/>
+          <ButtonUseMoney navigateTo={handleNavigation} />
         </View>
 
         <View style={styles.wallet}>
@@ -127,3 +141,33 @@ const styles = StyleSheet.create({
     right: -8,
   }
 });
+
+
+const demoInvestors = [{
+  id: 'scientist',
+  figure: require('../../assets/figures/figure-girl-doctor-2.png'),
+  idea: require('../../assets/misc/word-bubble-dna.png'),
+  ideaDetail: "🧬 ➕ 💰 🟰 🧪",
+  ideaTitle: "Scientific Breakthrough!",
+  cost: ['$', '$',],
+  location: 'TheMarket',
+  walletBalance: 0,
+}, {
+  id: 'biologist',
+  figure: require('../../assets/figures/figure-girl-water.png'),
+  idea: require('../../assets/misc/word-bubble-kelp.png'),
+  ideaDetail: "🪸 ➕ 💰 🟰 ♻️🟢",
+  ideaTitle: "Kelp-based clign-wrap!",
+  cost: ['$', '$', '$',],
+  location: 'TheMarket',
+  walletBalance: 0,
+}, {
+  id: 'genomist',
+  figure: require('../../assets/figures/figure-arctic-boy.png'),
+  idea: require('../../assets/misc/word-bubble-mammoth.png'),
+  ideaDetail: "💡 ➕ 💰 🟰 🦣",
+  ideaTitle: "Bring Back the Whoolly Mammoth!",
+  cost: ['$', '$', '$', '$',],
+  location: 'TheMarket',
+  walletBalance: 0,
+}];

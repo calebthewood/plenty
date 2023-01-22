@@ -6,10 +6,15 @@ import { Image, View, StyleSheet, Pressable, Animated, Text } from "react-native
  * used on the Investor screen.
  */
 export function MarketFigure({ investor, index, animatedValues, selected }) {
-  const [scaleAnimations, translateAnimations, setSelected] = animatedValues;
+  const [scaleAnimations, translateAnimations, setSelected, resetFigures] = animatedValues;
 
   function handlePress(evt) {
-    setSelected(index);
+    if (selected !== index) {
+      setSelected(index);
+    } else {
+      resetFigures(true)
+    }
+    setTimeout(()=> resetFigures(false), 200)
   }
 
   return (

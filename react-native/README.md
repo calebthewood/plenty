@@ -25,6 +25,11 @@ investor for a short story and minigames. Anyway, lots more work left to do!
 and their investments. Next I plan on animating the ground, the idea bubble, and bringing in 2 additional panels.
 - https://youtu.be/7IL4crgaxb8
 
+6. Inserted rough draft panels for idea and cost, converted translate animation
+to ValueXY to control both X and Y values.
+- https://youtu.be/olTMZL12lQM
+
+
 
 <img src="./assets/Screen%20Shot%202023-01-12%20at%2011.49.47%20PM.png" width="600px" />
 

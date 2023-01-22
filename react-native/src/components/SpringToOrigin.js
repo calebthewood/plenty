@@ -7,7 +7,7 @@ import {
   Text
 } from 'react-native';
 
-export default function SpringToOrigin({ basketCoords }) {
+export function SpringToOrigin() {
   const styles = StyleSheet.create({
     coinText: {
       top: -44,
@@ -15,12 +15,14 @@ export default function SpringToOrigin({ basketCoords }) {
       fontSize: 24,
       fontWeight: "bold",
       color: "#d57e08",
+
     },
     box: {
       height: 60,
       width: 60,
       backgroundColor: "#ffbd0b",
       borderRadius: 100,
+
 
       shadowOffset: { width: -2, height: 4 },
       shadowColor: "#212121",
@@ -35,7 +37,6 @@ export default function SpringToOrigin({ basketCoords }) {
     }
   });
 
-  const [showing, setShowing] = useState(true);
   const pan = useRef(new Animated.ValueXY()).current;
 
   const panResponder = useRef(
@@ -51,39 +52,28 @@ export default function SpringToOrigin({ basketCoords }) {
         [
           null,
           { dx: pan.x, dy: pan.y }
-        ],{useNativeDriver: false}
+        ], { useNativeDriver: false }
       ),
       onPanResponderRelease: (evt, { moveX, moveY }) => {
         console.log("*** moveX: ", moveX, " moveY: ", moveY);
-
-        //if touching basket (method will need to be improved)
-        if (moveX > 271 && moveX < 430 && moveY > 272 && moveY < 360) {
-          // disappear
-          setShowing(false)
-          // update state with += $1
-        } else {
-          Animated.spring(pan, {
-            toValue: { x: 0, y: 0 },
-            useNativeDriver: false,
-          }).start();
-        }
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 },
+          useNativeDriver: false,
+        }).start();
       }
     })
   ).current;
 
-  return showing ? (
+  return (
     <Animated.View
       style={{
+        zIndex: 3,
+        position: 'relative',
         transform: [{ translateX: pan.x }, { translateY: pan.y }]
       }}
       {...panResponder.panHandlers}
     >
       <View style={styles.box} />
       <Text style={styles.coinText}>$</Text>
-    </Animated.View>)
-    : null;
-
+    </Animated.View>);
 };
-
-
-

@@ -1,32 +1,18 @@
+import { useState } from 'react';
 import { ImageBackground, StyleSheet, View, Pressable, Text } from "react-native";
 import { MarketFigure } from "../components/MarketFigure";
 import { useAnimatedList } from "../customHooks/useAnimatedList";
+import { Wallet } from "./Wallet";
 
 {/* <MarketFigure bubbleImg={dnaImg} figureImg={biologistGirl} />,
 <MarketFigure bubbleImg={kelpImg} figureImg={raincoatGirl} />,
 <MarketFigure bubbleImg={mammothImg} figureImg={scientistBoy} /> */}
 
-export function TheMarket({ navigation }) {
-  const investors = [{
-    figure: require('../../assets/figures/figure-girl-doctor-2.png'),
-    idea: require('../../assets/misc/word-bubble-dna.png'),
-    ideaDetail: "🧬 ➕ 💰 🟰 🧪",
-    ideaTitle: "Scientific Breakthrough!",
-    cost: ['⚫', '⚫',],
-  }, {
-    figure: require('../../assets/figures/figure-girl-water.png'),
-    idea: require('../../assets/misc/word-bubble-kelp.png'),
-    ideaDetail: "🪸 ➕ 💰 🟰 ♻️🟢",
-    ideaTitle: "Kelp-based clign-wrap!",
-    cost: ['⚫', '⚫', '⚫',],
-  }, {
-    figure: require('../../assets/figures/figure-arctic-boy.png'),
-    idea: require('../../assets/misc/word-bubble-mammoth.png'),
-    ideaDetail: "💡 ➕ 💰 🟰 🦣",
-    ideaTitle: "Bring Back the Whooly Mammoth!",
-    cost: ['⚫', '⚫', '⚫', '⚫',],
-  }];
+export function TheMarket(props) {
+  const { investors, wallet, updateWallet } = props.route.params;
+  const { navigation } = props;
 
+  // const { navigation, investors, wallet } = params;
   const background = require('../../assets/landscape/market-landscape-1.png');
   const animatedValues = useAnimatedList();
   const resetFigures = animatedValues[3];
@@ -37,12 +23,7 @@ export function TheMarket({ navigation }) {
       source={background}
       resizeMode="cover"
       style={styles.background}>
-      <Pressable
-        style={styles.figureReset}
-        onPressIn={() => resetFigures(true)}
-        onPressOut={() => resetFigures(false)}><Text>X</Text>
-      </Pressable>
-
+      <Wallet wallet={wallet} updateWallet={updateWallet} />
       {selected === null ? null :
         <View style={styles.ideaDetail}>
           <Text>{investors[selected].ideaTitle}</Text>
@@ -50,12 +31,11 @@ export function TheMarket({ navigation }) {
         </View>}
 
       {selected === null ? null :
-        <View style={styles.costSection}>
-          <Text style={styles.costTitle}>Cost</Text>
-          <View style={styles.costBin} >
-            {investors[selected].cost.map((item, i) => (
-              <Text key={`${item}-${i}`} style={styles.costDiagram}>{item}</Text>))}
-          </View>
+        <View style={[styles.costSection, { height: investors[selected].cost.length * 70 }]}>
+          {investors[selected].cost.map((item, i) => (
+            <View key={`cost-${i}`} style={styles.costDiagramBackground}>
+              <Text key={`${item}-${i}`} style={styles.costDiagram}>{item}</Text>
+            </View>))}
         </View>}
 
       <View style={styles.container}>
@@ -110,16 +90,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     bottom: 20,
     left: 10,
-    zIndex: 2,
+    zIndex: 1,
     // borderWidth: 1,
-  },
-  figureReset: {
-    position: 'absolute',
-    right: 20,
-    bottom: 10,
-    height: 30,
-    width: 30,
-    zIndex: 4
   },
   ideaDetail: {
     position: 'absolute',
@@ -129,37 +101,45 @@ const styles = StyleSheet.create({
     top: 10,
     backgroundColor: 'white',
     opacity: .9,
-    borderWidth: 9,
+    borderWidth: 2,
+    borderColor: 'silver',
     borderRadius: 5,
     zIndex: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
   tempDiagram: {
-    fontSize: 40
+    fontSize: 40,
   },
   costSection: {
     position: 'absolute',
-    height: 260,
     width: 80,
     left: 420,
     top: 10,
     backgroundColor: 'white',
     opacity: .9,
-    borderWidth: 9,
+    borderWidth: 2,
+    borderColor: 'silver',
     borderRadius: 5,
     zIndex: 2,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   costTitle: {
     fontSize: 20,
   },
-  costBin: {
-    justifyContent: "space-evenly",
-    height: 210,
-  },
   costDiagram: {
     fontSize: 30,
+    left: 1
+  },
+  costDiagramBackground: {
+    backgroundColor: 'grey',
+    borderRadius: 50,
+    borderWidth: 'silver',
+    height: 41,
+    width: 41,
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: .7,
   }
 });
