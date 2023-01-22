@@ -29,6 +29,10 @@ and their investments. Next I plan on animating the ground, the idea bubble, and
 to ValueXY to control both X and Y values.
 - https://youtu.be/olTMZL12lQM
 
+7. Added Wallet, it's just a dummy component at this point until I set up the state needed to track coins across the application. Also made the panels adjustable based on investment cost.
+- https://youtu.be/WNPhCZJDeL4
+
+
 
 
 <img src="./assets/Screen%20Shot%202023-01-12%20at%2011.49.47%20PM.png" width="600px" />
