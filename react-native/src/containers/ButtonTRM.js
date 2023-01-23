@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Pressable, View, Image, StyleSheet } from 'react-native';
 
 export function ButtonTRM() {
-
+  console.log("#####\n ButtonTRM");
   const [pressed, setPressed] = useState(false);
   const treeImg = require('../../assets/trees/tree-round-3.png');
   const figureImg = require('../../assets/figures/figure-girl-purple.png');
@@ -45,9 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 120,
     width: 80,
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: '#2c3e50', // grey
   },
   tree: {
     position: 'relative',
@@ -64,7 +61,6 @@ const styles = StyleSheet.create({
     top: 92,
     left: 45,
     zIndex: 2,
-    // borderWidth: 1,
   },
   base: {
     width: 45,
@@ -102,9 +98,6 @@ const styles = StyleSheet.create({
     ],
   },
   shadow: {
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: '#e74c3c', // red
     position: 'absolute',
     backgroundColor: '#21210310',
     borderRadius: 20,

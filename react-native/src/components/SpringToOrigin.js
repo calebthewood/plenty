@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -55,7 +55,6 @@ export function SpringToOrigin() {
         ], { useNativeDriver: false }
       ),
       onPanResponderRelease: (evt, { moveX, moveY }) => {
-        console.log("*** moveX: ", moveX, " moveY: ", moveY);
         Animated.spring(pan, {
           toValue: { x: 0, y: 0 },
           useNativeDriver: false,

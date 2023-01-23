@@ -15,6 +15,7 @@ Button[Type][Shape][Size]
 */
 
 export function HomeScreen({ navigation }) {
+  console.log("##### HomeScreen");
   const backgroundMid = require('../../assets/landscape/demo-homescreen-mid-edit.png');
   const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
 
@@ -22,17 +23,10 @@ export function HomeScreen({ navigation }) {
   state of one player's game in an object that lists wallet balance, investment
   levels, investor story progress, etc and that object will be held in state to
   determine how the world renders itself. For now I am keeping the minimal state
-  needed to render a playable demo.*/
-
-  const [investors, setInvestors] = useState(demoInvestors);
-  const [wallet, setWallet] = useState(5);
+  needed to render a playable demo. */
 
   function handleNavigation(route) {
-    const params = {
-      investors: investors,
-      wallet: wallet,
-    };
-    navigation.navigate(route, params);
+    navigation.navigate(route);
   }
 
   return (
@@ -83,18 +77,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth: 3,
-    // borderRadius:1,
-    // borderColor: "black",
-    // borderStyle: "solid",
-    // zIndex: 5,
-
   },
   treeOne: {
     position: 'absolute',
-    // borderColor: 'red',
-    // borderStyle: 'solid',
-    // borderWidth: 1,
     width: 80,
     height: 140,
     left: 380,
@@ -102,9 +87,6 @@ const styles = StyleSheet.create({
   },
   caveOne: {
     position: 'absolute',
-    // borderColor: 'red',
-    // borderStyle: 'solid',
-    // borderWidth: 1,
     width: 80,
     height: 120,
     top: 0,
@@ -112,9 +94,6 @@ const styles = StyleSheet.create({
   },
   makeMoney: {
     position: 'absolute',
-    // borderColor: 'red',
-    // borderStyle: 'solid',
-    // borderWidth: 1,
     width: 80,
     height: 120,
     left: 1,
@@ -122,9 +101,6 @@ const styles = StyleSheet.create({
   },
   useMoney: {
     position: 'absolute',
-    // borderColor: 'red',
-    // borderStyle: 'solid',
-    // borderWidth: 1,
     width: 100,
     height: 110,
     left: 240,
@@ -132,42 +108,9 @@ const styles = StyleSheet.create({
   },
   wallet: {
     position: 'absolute',
-    // borderColor: 'red',
-    // borderStyle: 'solid',
-    // borderWidth: 1,
     width: 100,
     height: 100,
     bottom: 15,
     right: -8,
   }
 });
-
-
-const demoInvestors = [{
-  id: 'scientist',
-  figure: require('../../assets/figures/figure-girl-doctor-2.png'),
-  idea: require('../../assets/misc/word-bubble-dna.png'),
-  ideaDetail: "🧬 ➕ 💰 🟰 🧪",
-  ideaTitle: "Scientific Breakthrough!",
-  cost: ['$', '$',],
-  location: 'TheMarket',
-  walletBalance: 0,
-}, {
-  id: 'biologist',
-  figure: require('../../assets/figures/figure-girl-water.png'),
-  idea: require('../../assets/misc/word-bubble-kelp.png'),
-  ideaDetail: "🪸 ➕ 💰 🟰 ♻️🟢",
-  ideaTitle: "Kelp-based clign-wrap!",
-  cost: ['$', '$', '$',],
-  location: 'TheMarket',
-  walletBalance: 0,
-}, {
-  id: 'genomist',
-  figure: require('../../assets/figures/figure-arctic-boy.png'),
-  idea: require('../../assets/misc/word-bubble-mammoth.png'),
-  ideaDetail: "💡 ➕ 💰 🟰 🦣",
-  ideaTitle: "Bring Back the Whoolly Mammoth!",
-  cost: ['$', '$', '$', '$',],
-  location: 'TheMarket',
-  walletBalance: 0,
-}];

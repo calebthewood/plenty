@@ -8,11 +8,9 @@ import { Wallet } from "./Wallet";
 <MarketFigure bubbleImg={kelpImg} figureImg={raincoatGirl} />,
 <MarketFigure bubbleImg={mammothImg} figureImg={scientistBoy} /> */}
 
-export function TheMarket(props) {
-  const { investors, wallet, updateWallet } = props.route.params;
-  const { navigation } = props;
+export function TheMarket({ message, investors, wallet }) {
+  console.log("##### TheMarket");
 
-  // const { navigation, investors, wallet } = params;
   const background = require('../../assets/landscape/market-landscape-1.png');
   const animatedValues = useAnimatedList();
   const resetFigures = animatedValues[3];
@@ -23,7 +21,7 @@ export function TheMarket(props) {
       source={background}
       resizeMode="cover"
       style={styles.background}>
-      <Wallet wallet={wallet} updateWallet={updateWallet} />
+      <Wallet wallet={wallet} />
       {selected === null ? null :
         <View style={styles.ideaDetail}>
           <Text>{investors[selected].ideaTitle}</Text>

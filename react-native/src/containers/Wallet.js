@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { SpringToOrigin } from '../components/SpringToOrigin';
 
-export function Wallet({ wallet, updateWallet }) {
-  const { balance, updateBalance } = wallet;
+export function Wallet({ wallet }) {
+  console.log("##### Wallet");
+  const { balance } = wallet;
 
   function generateCoins(count = 1) {
     const output = [];
     while (count <= 4) {
-      console.log(output)
       output.push(count);
       count += 1;
     }

@@ -3,7 +3,7 @@ import { Pressable, View, Image, StyleSheet } from 'react-native';
 
 
 export function ButtonWallet() {
-
+  console.log("##### ButtonWallet");
   const [pressed, setPressed] = useState(false);
   const walletImg = require('../../assets/misc/wallet-3.png');
 

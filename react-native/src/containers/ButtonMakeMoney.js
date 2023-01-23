@@ -3,7 +3,7 @@ import { Pressable, View, Image, StyleSheet } from 'react-native';
 
 
 export function ButtonMakeMoney({navigateTo}) {
-
+  console.log("#####\n ButtonMakeMoney");
   const [pressed, setPressed] = useState(false);
   const treeImg = require('../../assets/trees/tree-big-oak.png');
   const mushroomImg = require('../../assets/structures/mushroom-house-2.png');

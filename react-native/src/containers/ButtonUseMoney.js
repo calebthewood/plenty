@@ -3,7 +3,7 @@ import { Pressable, View, Image, StyleSheet } from 'react-native';
 
 
 export function ButtonUseMoney({ navigateTo }) {
-
+  console.log("#####\n ButtonUseMoney");
   const [pressed, setPressed] = useState(false);
   const marketImg = require('../../assets/structures/market-stall-1.png');
   const chartImg = require('../../assets/misc/charts.png');

@@ -34,7 +34,7 @@ export function useAnimatedList() {
   useEffect(() => {
     if (selected === null) return;
     if (reset) {
-      console.log("Reset: ", reset)
+      // console.log("Reset: ", reset)
       setSelected(null)
       Animated.parallel([
         Animated.timing(scaleAnimations[selected], {
@@ -70,7 +70,7 @@ export function useAnimatedList() {
       ]).start();
 
     } else {
-      console.log("selected: ", selected);
+      // console.log("selected: ", selected);
       Animated.parallel([
         Animated.timing(scaleAnimations[selected], {
           toValue: 1.5,
