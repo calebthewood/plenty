@@ -5,6 +5,8 @@
 ### *** This project is still in alpha, art and mechanics are expected to continue changing. ***
 Screen shot of the homescreen from the development build of the application. All assets generated using OpenAI's Dall-e. App will feature an isometric overworld and a dozen or so 2d educational games developed for young children.
 
+<img src="./assets/Screen%20Shot%202023-01-12%20at%2011.49.47%20PM.png" width="600px" />
+
 Check out the videos below for quick clips of the app's progress.
 
 1. Overworld map, the hub, most everything is clickable and will lead to a minigame.
@@ -32,9 +34,8 @@ to ValueXY to control both X and Y values.
 7. Added Wallet, it's just a dummy component at this point until I set up the state needed to track coins across the application. Also made the panels adjustable based on investment cost.
 - https://youtu.be/WNPhCZJDeL4
 
+8. Getting the global state set up to handle money transfers between actors in the app. Money Tree to Player is shown here. Next is Player to Investment Idea.
+- https://youtu.be/GlOnGjC5SZE
 
-
-
-<img src="./assets/Screen%20Shot%202023-01-12%20at%2011.49.47%20PM.png" width="600px" />
 
 
