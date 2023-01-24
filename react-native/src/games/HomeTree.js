@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   View, ImageBackground, Image,
   StyleSheet, Text, useWindowDimensions
@@ -6,6 +6,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { IntroDiagram } from '../components/IntroDiagram';
 import { PickableCoin } from '../components/PickableCoin';
+import { Wallet } from '../containers/Wallet';
 
 /*
 Thought: to make the game replayable, but keep some idea of money scarcity:
@@ -55,12 +56,13 @@ function getCoins(windowH, windowW) {
       y: yOffset + randomizedOffset()
     });
   }
-  console.log(" Coin Coords: ", coinCoords);
+  // console.log(" Coin Coords: ", coinCoords);
   return coinCoords;
 }
 
 
-export function HomeTree({ navigation }) {
+export function HomeTree({ navigation, wallet, handleMoney }) {
+  console.log('#### HomeTree: ');
   const { height, width } = useWindowDimensions();
   const introDiagram = require('../../assets/diagrams/money-tree-diagram.png');
   const outroDiagram = require('../../assets/diagrams/money-tree-outro-2.png');
@@ -68,7 +70,7 @@ export function HomeTree({ navigation }) {
   const canopy = require('../../assets/trees/canopy-layered-paper.png');
   const basket = require('../../assets/misc/basket.png');
 
-  const [viewIntro, setViewIntro] = useState(true);
+  const [showModal, setShowModal] = useState("intro");
   const [basketCount, setBasketCount] = useState(0);
   const [coins, setCoins] = useState(getCoins(height, width));
 
@@ -78,15 +80,21 @@ export function HomeTree({ navigation }) {
     setBasketCount(basketCount => basketCount + 1);
   }
 
+  useEffect(() => {
+    handleMoney("tree", "player", 1);
+    if (basketCount === coins.length) {
+      setShowModal("outro")
+    }
+  }, [basketCount]);
 
-  if (viewIntro) return (
+  if (showModal === "intro") return (
     <IntroDiagram
       navigateBack={() => navigation.navigate('Home')}
       diagram={introDiagram}
-      navigateTo={() => setViewIntro(false)} />
+      navigateTo={() => setShowModal(false)} />
   );
 
-  if (basketCount === coins.length) return (
+  if (showModal === "outro") return (
     <IntroDiagram
       navigateBack={() => navigation.navigate('HomeTree')}
       diagram={outroDiagram}
@@ -109,7 +117,7 @@ export function HomeTree({ navigation }) {
         <Image resizeMode="contain" style={styles.basketOne} source={basket} />
         <Text style={styles.basketCount}>${basketCount}</Text>
       </View>
-
+      <Wallet wallet={wallet} />
       <StatusBar style="auto" hidden={true} />
     </ImageBackground>
   );

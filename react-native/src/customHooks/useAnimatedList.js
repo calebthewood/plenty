@@ -1,4 +1,4 @@
-import { Pressable, View, Text, Animated } from 'react-native';
+import { Animated } from 'react-native';
 import { useState, useEffect, useRef } from 'react';
 
 

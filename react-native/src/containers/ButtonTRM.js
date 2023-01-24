@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Pressable, View, Image, StyleSheet } from 'react-native';
 
 export function ButtonTRM() {
-  console.log("#####\n ButtonTRM");
+  console.log("##### ButtonTRM");
   const [pressed, setPressed] = useState(false);
   const treeImg = require('../../assets/trees/tree-round-3.png');
   const figureImg = require('../../assets/figures/figure-girl-purple.png');

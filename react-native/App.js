@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen } from './src/containers/HomeScreen';
@@ -8,30 +8,56 @@ import { TheMarket } from './src/containers/TheMarket';
 const Stack = createNativeStackNavigator();
 function App() {
   console.log("##### App");
-  /* Putting off fully developing 'world' state for now. Idea is store the entire
-  state of one player's game in an object that lists wallet balance, investment
-  levels, investor story progress, etc and that object will be held in state to
-  determine how the world renders itself. For now I am keeping the minimal state
-  needed to render a playable demo.*/
 
   const [investors, setInvestors] = useState(demoInvestors);
-  const [wallet, setWallet] = useState(5);
+  const [wallet, setWallet] = useState(1);
+  const [balance, setBalance] = useState({
+    player: 0,
+    tree: 10,
+    scientist: 0,
+    biologist: 0,
+    genomist: 0,
+  });
+
+
+  const handleMoney = (from, to, amt) => {
+    console.log("Balance Before: ", balance);
+    setBalance({
+      ...balance,
+      [from]: balance[from] - amt,
+      [to]: balance[to] + amt
+    });
+    console.log("Balance After: ", balance);
+  };
+
+  // const handleWallet = (val) => {
+  //   console.log("handleWallet: ", "\n wallet: ", wallet, "\n value: ", val);
+  //   setWallet(wallet + val);
+  // };
 
   return (
     <NavigationContainer>
       <Stack.Navigator style={{ display: 'hidden' }}>
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="HomeTree" component={HomeTree} options={{ headerShown: false }} />
+
+        <Stack.Screen name="Home" options={{ headerShown: false }} >
+          {(props) => <HomeScreen {...props} wallet={balance.player} />}
+        </Stack.Screen >
+
+        <Stack.Screen name="HomeTree" options={{ headerShown: false }} >
+          {(props) => <HomeTree {...props} wallet={balance.player} handleMoney={handleMoney} />}
+        </Stack.Screen >
+
         <Stack.Screen
           name="TheMarket"
           options={{ headerShown: false }} >
-          {() => <TheMarket investors={investors} wallet={wallet} />}
+          {(props) => <TheMarket {...props} investors={investors} wallet={balance.player} handleMoney={handleMoney} />}
         </Stack.Screen>
 
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
 
 const demoInvestors = [{
   id: 'scientist',

@@ -3,7 +3,7 @@ import { Pressable, View, Image, StyleSheet } from 'react-native';
 
 
 export function ButtonCave() {
-  console.log("#####\n ButtonCave");
+  console.log("##### ButtonCave");
   const [pressed, setPressed] = useState(false);
   const caveImg = require('../../assets/structures/cave-entrance-small.png');
 

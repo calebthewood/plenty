@@ -5,7 +5,11 @@ import { useCoinAnimation } from '../customHooks/useCoinAnimation';
 export function PickableCoin({ updateBasket, coords }) {
   const [showing, setShowing] = useState(true);
 
-  const [pan, panResponder] = useCoinAnimation(() => setShowing(false), updateBasket);
+  function hideCoin() {
+    setShowing(false);
+  }
+
+  const [pan, panResponder] = useCoinAnimation(hideCoin, updateBasket);
   // let xOffset = Math.floor(Math.random() * 20) * (Math.random() > .5 ? 1 : -1);
   // let yOffset = Math.floor(Math.random() * 20) * (Math.random() > .5 ? 1 : -1);
   if (!showing) return null;

@@ -8,8 +8,8 @@ import { Wallet } from "./Wallet";
 <MarketFigure bubbleImg={kelpImg} figureImg={raincoatGirl} />,
 <MarketFigure bubbleImg={mammothImg} figureImg={scientistBoy} /> */}
 
-export function TheMarket({ message, investors, wallet }) {
-  console.log("##### TheMarket");
+export function TheMarket({ investors, handleWallet, wallet }) {
+  console.log("##### TheMarket: ");
 
   const background = require('../../assets/landscape/market-landscape-1.png');
   const animatedValues = useAnimatedList();
@@ -21,7 +21,7 @@ export function TheMarket({ message, investors, wallet }) {
       source={background}
       resizeMode="cover"
       style={styles.background}>
-      <Wallet wallet={wallet} />
+
       {selected === null ? null :
         <View style={styles.ideaDetail}>
           <Text>{investors[selected].ideaTitle}</Text>
@@ -48,6 +48,7 @@ export function TheMarket({ message, investors, wallet }) {
             />
           ))}
         </View>
+        <Wallet wallet={wallet} />
         <View style={styles.ground}></View>
       </View>
     </ImageBackground>

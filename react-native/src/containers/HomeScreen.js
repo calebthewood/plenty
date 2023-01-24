@@ -6,6 +6,7 @@ import { ButtonMakeMoney } from './ButtonMakeMoney';
 import { ButtonUseMoney } from './ButtonUseMoney';
 import { ButtonWallet } from './ButtonWallet';
 import { StatusBar } from 'expo-status-bar';
+import { Wallet } from './Wallet';
 
 /*
 Until I refactor the button to be more customizable, the button naming scheme is as follows:
@@ -14,16 +15,12 @@ Button[Type][Shape][Size]
   ex: Button[Tree][Round][Medium] which I abbreviate to 'ButtonTRM'
 */
 
-export function HomeScreen({ navigation }) {
-  console.log("##### HomeScreen");
+export function HomeScreen({ navigation, wallet, handleWallet }) {
+  console.log("##### HomeScreen: ");
   const backgroundMid = require('../../assets/landscape/demo-homescreen-mid-edit.png');
   const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
+  const [showWallet, setShowWallet] = useState(false);
 
-  /* Putting off fully developing 'world' state for now. Idea is store the entire
-  state of one player's game in an object that lists wallet balance, investment
-  levels, investor story progress, etc and that object will be held in state to
-  determine how the world renders itself. For now I am keeping the minimal state
-  needed to render a playable demo. */
 
   function handleNavigation(route) {
     navigation.navigate(route);
@@ -34,15 +31,16 @@ export function HomeScreen({ navigation }) {
       source={backgroundMid}
       resizeMode="cover"
       style={styles.background}>
+      <View style={styles.container}>
 
-      <View
-        style={styles.container}>
         <View style={styles.treeOne}>
           <ButtonTRM />
         </View>
+
         <View style={styles.caveOne}>
           <ButtonCave />
         </View>
+
         <View style={styles.makeMoney}>
           <ButtonMakeMoney navigateTo={handleNavigation} />
         </View>
@@ -52,11 +50,11 @@ export function HomeScreen({ navigation }) {
         </View>
 
         <View style={styles.wallet}>
-          <ButtonWallet />
+          <ButtonWallet toggleWallet={()=> setShowWallet(() => !showWallet)}/>
         </View>
 
+        <Wallet toggleWallet={()=> setShowWallet(() => !showWallet)} wallet={wallet} showing={showWallet} />
       </View>
-
       <StatusBar style="auto" hidden={true} />
     </ImageBackground>
   );

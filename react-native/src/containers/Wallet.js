@@ -1,30 +1,26 @@
-import { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Pressable } from 'react-native';
 import { SpringToOrigin } from '../components/SpringToOrigin';
 
-export function Wallet({ wallet }) {
-  console.log("##### Wallet");
-  const { balance } = wallet;
+export function Wallet({ wallet, showing, toggleWallet }) {
+  console.log("##### Wallet ");
 
-  function generateCoins(count = 1) {
+  function generateCoins() {
     const output = [];
-    while (count <= 4) {
+    let count = 1;
+    while (count <= wallet) {
       output.push(count);
       count += 1;
     }
     return output;
   };
 
-  const coins = generateCoins(1);
-  // {/* <PickableCoin
-  //         key={coin.key}
-  //         updateBasket={coin.updateBasket}
-  //         coords={coin.coords} />) */}
+  const coins = generateCoins();
 
   return (
-    <View style={styles.container}>
-      <View style={{alignItems: 'center', justifyContent: 'space-between', top: 20,}}>
+    <View style={[styles.container, { transform: [{ translateX: showing ? 0 : 90 }] },]}>
+      <View style={{ alignItems: 'center', justifyContent: 'space-between', top: 20, }}>
         {coins.map((coin) => <SpringToOrigin key={`coin-${coin}`} />)}
+      <Pressable onPress={toggleWallet}><Text style={styles.hide}>➥</Text></Pressable>
       </View>
     </View>
   );
@@ -43,4 +39,9 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 50,
     borderColor: '#6D214F'
   },
+  hide: {
+    fontSize: 28,
+    color: '#6D214F',
+    right: -200,
+  }
 });
