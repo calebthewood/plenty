@@ -15,6 +15,7 @@ export function TheMarket({ investors, handleWallet, wallet }) {
   const animatedValues = useAnimatedList();
   const resetFigures = animatedValues[3];
   const selected = animatedValues[4];
+  const [showWallet, setShowWallet] = useState(false);
 
   return (
     <ImageBackground
@@ -48,7 +49,7 @@ export function TheMarket({ investors, handleWallet, wallet }) {
             />
           ))}
         </View>
-        <Wallet wallet={wallet} />
+        <Wallet toggleWallet={()=> setShowWallet(() => !showWallet)} wallet={wallet} showing={selected >= 0} />
         <View style={styles.ground}></View>
       </View>
     </ImageBackground>

@@ -20,7 +20,7 @@ export function HomeScreen({ navigation, wallet, handleWallet }) {
   const backgroundMid = require('../../assets/landscape/demo-homescreen-mid-edit.png');
   const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
   const [showWallet, setShowWallet] = useState(false);
-
+<Wallet toggleWallet={()=> setShowWallet(() => !showWallet)} wallet={wallet} showing={showWallet} />
 
   function handleNavigation(route) {
     navigation.navigate(route);

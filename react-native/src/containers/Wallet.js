@@ -1,11 +1,21 @@
-import { useState } from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { useState, useRef, useEffect } from 'react';
+import { View, StyleSheet, Text, Pressable, Animated } from 'react-native';
 import { SpringToOrigin } from '../components/SpringToOrigin';
 
 export function Wallet({ wallet }) {
   console.log("##### Wallet ");
 
-  const [showing, setShowing] = useState(false)
+  const [showing, setShowing] = useState(false);
+  const walletAnim = useRef(new Animated.Value(90)).current;
+
+  useEffect(() => {
+    Animated.spring(walletAnim, {
+      toValue: showing ? 5 : 90,
+      duration: 200,
+      useNativeDriver: true
+    }).start();
+  }, [showing]);
+
 
   function generateCoins() {
     const output = [];
@@ -21,16 +31,21 @@ export function Wallet({ wallet }) {
 
 
   function toggleWallet() {
-    setShowing(!showing)
+    setShowing(!showing);
   }
 
   return (
-    <View style={[styles.container, { transform: [{ translateX: showing ? 0 : 90 }] },]}>
+    <Animated.View style={[
+      styles.container,
+      {
+        transform: [{ translateX: walletAnim }],
+      },
+    ]}>
       <Pressable onPress={toggleWallet} style={styles.toggle}><Text style={styles.toggleIcon}>$   </Text></Pressable>
       <View style={{ alignItems: 'center', justifyContent: 'space-between', }}>
         {coins.map((coin) => <SpringToOrigin key={`coin-${coin}`} />)}
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
