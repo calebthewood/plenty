@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { View, StyleSheet, Text, Pressable } from 'react-native';
 import { SpringToOrigin } from '../components/SpringToOrigin';
 
-export function Wallet({ wallet, showing, toggleWallet }) {
+export function Wallet({ wallet }) {
   console.log("##### Wallet ");
+
+  const [showing, setShowing] = useState(false)
 
   function generateCoins() {
     const output = [];
@@ -16,11 +19,16 @@ export function Wallet({ wallet, showing, toggleWallet }) {
 
   const coins = generateCoins();
 
+
+  function toggleWallet() {
+    setShowing(!showing)
+  }
+
   return (
     <View style={[styles.container, { transform: [{ translateX: showing ? 0 : 90 }] },]}>
-      <View style={{ alignItems: 'center', justifyContent: 'space-between', top: 20, }}>
+      <Pressable onPress={toggleWallet} style={styles.toggle}><Text style={styles.toggleIcon}>$   </Text></Pressable>
+      <View style={{ alignItems: 'center', justifyContent: 'space-between', }}>
         {coins.map((coin) => <SpringToOrigin key={`coin-${coin}`} />)}
-      <Pressable onPress={toggleWallet}><Text style={styles.hide}>➥</Text></Pressable>
       </View>
     </View>
   );
@@ -38,6 +46,25 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopStartRadius: 50,
     borderColor: '#6D214F'
+  },
+  toggle: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    height: 40,
+    width: 50,
+    top: 200,
+    right: 30,
+    backgroundColor: '#9b59b6',
+    borderColor: '#6D214F',
+    borderTopWidth: 2,
+    borderLeftWidth: 4,
+    borderRadius: 20,
+  },
+  toggleIcon: {
+    color: 'gold',
+    fontSize: 20,
   },
   hide: {
     fontSize: 28,
