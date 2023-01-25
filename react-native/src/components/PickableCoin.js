@@ -2,21 +2,20 @@ import { useState } from 'react';
 import { View, StyleSheet, Animated, Text, } from 'react-native';
 import { useCoinAnimation } from '../customHooks/useCoinAnimation';
 
-export function PickableCoin({ updateBasket, coords }) {
+export function PickableCoin({ handleMoney, coords, basket }) {
   const [showing, setShowing] = useState(true);
-
+  console.log("P-Coin Basket: ", basket.y)
   function hideCoin() {
     setShowing(false);
   }
 
-  const [pan, panResponder] = useCoinAnimation(hideCoin, updateBasket);
-  // let xOffset = Math.floor(Math.random() * 20) * (Math.random() > .5 ? 1 : -1);
-  // let yOffset = Math.floor(Math.random() * 20) * (Math.random() > .5 ? 1 : -1);
+  const [pan, panResponder] = useCoinAnimation(hideCoin, handleMoney, basket);
+
   if (!showing) return null;
   return (
     <Animated.View
       style={{
-        top: coords.y, left: coords.x, position: 'absolute',
+        top: coords.y, left: coords.x, position: coords.position,
         transform: [{ translateX: pan.x }, { translateY: pan.y }]
       }}
       {...panResponder.panHandlers}

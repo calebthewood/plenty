@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   View, ImageBackground, Image,
   StyleSheet, Text, useWindowDimensions
@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { IntroDiagram } from '../components/IntroDiagram';
 import { PickableCoin } from '../components/PickableCoin';
 import { Wallet } from '../containers/Wallet';
+
 
 /*
 Thought: to make the game replayable, but keep some idea of money scarcity:
@@ -53,7 +54,8 @@ function getCoins(windowH, windowW) {
   for (let i = 1; i <= coinCount; i++) {
     coinCoords.push({
       x: (xOffset * i) + randomizedOffset(),
-      y: yOffset + randomizedOffset()
+      y: yOffset + randomizedOffset(),
+      position: 'absolute'
     });
   }
   // console.log(" Coin Coords: ", coinCoords);
@@ -73,6 +75,21 @@ export function HomeTree({ navigation, wallet, handleMoney }) {
   const [showModal, setShowModal] = useState("intro");
   const [basketCount, setBasketCount] = useState(0);
   const [coins, setCoins] = useState(getCoins(height, width));
+  const [basketMeasure, setBasketMeasure] = useState(null); //async, initially renders as null
+
+  /**
+   * Sample Layout Data for Basket:
+   * {
+   *   "height": 130,
+   *   "width": 140,
+   *   "x": 263.5,
+   *   "y": 240,
+   * }
+   */
+  function handleBasketLayout(e) {
+    setBasketMeasure(e.nativeEvent.layout);
+    console.log("##### Basket Layout: ", e.nativeEvent.layout);
+  }
 
   // passed from component to hook
   function updateBasket(coinOffset) {
@@ -83,7 +100,7 @@ export function HomeTree({ navigation, wallet, handleMoney }) {
   useEffect(() => {
     handleMoney("tree", "player", 1);
     if (basketCount === coins.length) {
-      setShowModal("outro")
+      setShowModal("outro");
     }
   }, [basketCount]);
 
@@ -108,13 +125,14 @@ export function HomeTree({ navigation, wallet, handleMoney }) {
       style={styles.background}>
       <View style={styles.container}>
         <Image resizeMode="contain" style={styles.canopy} source={canopy} />
-        {coins.map((coords, i) => (
+        {basketMeasure && coins.map((coords, i) => (
           <PickableCoin
             key={`coin-${i}-${coords.x}`}
             coords={coords}
-            updateBasket={() => updateBasket(coords.x)} />
+            handleMoney={() => updateBasket(coords.x)}
+            basket={basketMeasure} />
         ))}
-        <Image resizeMode="contain" style={styles.basketOne} source={basket} />
+        <Image onLayout={handleBasketLayout} resizeMode="contain" style={styles.basketOne} source={basket} />
         <Text style={styles.basketCount}>${basketCount}</Text>
       </View>
       <Wallet wallet={wallet} />

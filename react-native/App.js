@@ -14,26 +14,21 @@ function App() {
   const [balance, setBalance] = useState({
     player: 0,
     tree: 10,
-    scientist: 0,
-    biologist: 0,
-    genomist: 0,
+    scientist: 1,
+    biologist: 1,
+    genomist: 2,
   });
 
 
   const handleMoney = (from, to, amt) => {
-    console.log("Balance Before: ", balance);
+    // console.log("Balance Before: ", balance);
     setBalance({
       ...balance,
       [from]: balance[from] - amt,
       [to]: balance[to] + amt
     });
-    console.log("Balance After: ", balance);
+    // console.log("Balance After: ", balance);
   };
-
-  // const handleWallet = (val) => {
-  //   console.log("handleWallet: ", "\n wallet: ", wallet, "\n value: ", val);
-  //   setWallet(wallet + val);
-  // };
 
   return (
     <NavigationContainer>
@@ -50,7 +45,7 @@ function App() {
         <Stack.Screen
           name="TheMarket"
           options={{ headerShown: false }} >
-          {(props) => <TheMarket {...props} investors={investors} wallet={balance.player} handleMoney={handleMoney} />}
+          {(props) => <TheMarket {...props} investors={investors} balance={balance} handleMoney={handleMoney} />}
         </Stack.Screen>
 
       </Stack.Navigator>

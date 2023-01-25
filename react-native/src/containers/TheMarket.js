@@ -3,19 +3,20 @@ import { ImageBackground, StyleSheet, View, Pressable, Text } from "react-native
 import { MarketFigure } from "../components/MarketFigure";
 import { useAnimatedList } from "../customHooks/useAnimatedList";
 import { Wallet } from "./Wallet";
+import { PickableCoin } from '../components/PickableCoin';
 
 {/* <MarketFigure bubbleImg={dnaImg} figureImg={biologistGirl} />,
 <MarketFigure bubbleImg={kelpImg} figureImg={raincoatGirl} />,
 <MarketFigure bubbleImg={mammothImg} figureImg={scientistBoy} /> */}
 
-export function TheMarket({ investors, handleWallet, wallet }) {
-  console.log("##### TheMarket: ");
+export function TheMarket({ investors, balance, handleWallet }) {
 
   const background = require('../../assets/landscape/market-landscape-1.png');
   const animatedValues = useAnimatedList();
   const resetFigures = animatedValues[3];
   const selected = animatedValues[4];
   const [showWallet, setShowWallet] = useState(false);
+  console.log("##### TheMarket: ");
 
   return (
     <ImageBackground
@@ -32,7 +33,12 @@ export function TheMarket({ investors, handleWallet, wallet }) {
       {selected === null ? null :
         <View style={[styles.costSection, { height: investors[selected].cost.length * 70 }]}>
           {investors[selected].cost.map((item, i) => (
-            <View key={`cost-${i}`} style={styles.costDiagramBackground}>
+
+            <View key={`cost-${i}`} style={
+              i < balance[investors[selected].id] ?
+              styles.costBackgroundFilled : styles.costBackgroundEmpty
+
+              }>
               <Text key={`${item}-${i}`} style={styles.costDiagram}>{item}</Text>
             </View>))}
         </View>}
@@ -49,7 +55,7 @@ export function TheMarket({ investors, handleWallet, wallet }) {
             />
           ))}
         </View>
-        <Wallet toggleWallet={()=> setShowWallet(() => !showWallet)} wallet={wallet} showing={selected >= 0} />
+        <Wallet toggleWallet={() => setShowWallet(() => !showWallet)} wallet={balance.player} showing={selected >= 0} />
         <View style={styles.ground}></View>
       </View>
     </ImageBackground>
@@ -111,6 +117,20 @@ const styles = StyleSheet.create({
   tempDiagram: {
     fontSize: 40,
   },
+  coinSection: {
+    position: 'absolute',
+    width: 80,
+    left: 420,
+    top: 10,
+    backgroundColor: 'white',
+    opacity: 0,
+    borderWidth: 2,
+    borderColor: 'silver',
+    borderRadius: 5,
+    zIndex: 3,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
   costSection: {
     position: 'absolute',
     width: 80,
@@ -132,10 +152,20 @@ const styles = StyleSheet.create({
     fontSize: 30,
     left: 1
   },
-  costDiagramBackground: {
+  costBackgroundFilled: {
     backgroundColor: 'grey',
     borderRadius: 50,
     borderWidth: 'silver',
+    height: 41,
+    width: 41,
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: .7,
+  },
+  costBackgroundEmpty: {
+    backgroundColor: 'gold',
+    borderRadius: 50,
+    borderWidth: 'goldenrod',
     height: 41,
     width: 41,
     alignItems: 'center',
