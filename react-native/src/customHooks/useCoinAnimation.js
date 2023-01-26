@@ -1,10 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { PanResponder, Animated, useWindowDimensions } from "react-native";
 
-// Consider connecting this to the coin sizes in game component, 1SoT
-const COIN_RADIUS = 30;
-const BASKET_WIDTH = 140 + COIN_RADIUS;
-const BASKET_HEIGHT = 120 + COIN_RADIUS;
 
 /**
  * Creates and returns an Animated ValueXY and accompanying PanResponder
@@ -13,17 +9,16 @@ const BASKET_HEIGHT = 120 + COIN_RADIUS;
  *
  * TODO: make more generic, 'drag to point and dissapear' animation
  *
- * @param {*} props
- * @returns
  */
-export function useCoinAnimation(hideCoin, handleMoney, basket) {
+export function useCoinAnimation(hideCoin, handleMoney, basketLayout) {
   const { height, width } = useWindowDimensions();
 
-  function coinInBasket(coinX, coinY, basket) {
-    const cushion = 20
-    const inXrange = coinX + cushion > basket.x && coinX - cushion < basket.x + basket.width
-    const inYrange = coinY + cushion > basket.y && coinY - cushion < basket.y + basket.width
-    return inXrange && inYrange
+  function coinInBasket(coinX, coinY, basketLayout) {
+    const { x, y, height, width } = basketLayout;
+    const cushion = 20; // makes it easier to get in basket
+    const inXrange = coinX + cushion > x && coinX - cushion < x + width;
+    const inYrange = coinY + cushion > y && coinY - cushion < y + height;
+    return inXrange && inYrange;
   }
 
   const pan = useRef(new Animated.ValueXY()).current;
@@ -46,18 +41,19 @@ export function useCoinAnimation(hideCoin, handleMoney, basket) {
       onPanResponderRelease: (evt, { moveX, moveY, x0, y0, dx, dy }) => {
         // useWindowDimensions to check if coin is within the height and width
         // of the bottom center of the screen. ie, where the basket will be
-        let newX = 0
-        let newY = 0
-        if (coinInBasket(moveX, moveY, basket)) {
+        let newX = 0;
+        let newY = 0;
+        console.log("useCoinAnimation Basket: ", basketLayout);
+        if (basketLayout && coinInBasket(moveX, moveY, basketLayout)) {
           newX = 333 - (moveX - dx);
           newY = 320 - (moveY - dy);
           handleMoney();
         }
-          Animated.spring(pan, {
-            toValue: { x: newX, y: newY},
-            useNativeDriver: false,
-          }).start();
-        }
+        Animated.spring(pan, {
+          toValue: { x: newX, y: newY },
+          useNativeDriver: false,
+        }).start();
+      }
     })
   ).current;
 

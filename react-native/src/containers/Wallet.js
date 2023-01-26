@@ -1,33 +1,36 @@
 import { useState, useRef, useEffect } from 'react';
 import { View, StyleSheet, Text, Pressable, Animated } from 'react-native';
 import { SpringToOrigin } from '../components/SpringToOrigin';
+import { PickableCoin } from '../components/PickableCoin';
 
-export function Wallet({ wallet }) {
-  console.log("##### Wallet ");
+export function Wallet({ balance, basketLayout, handleMoney }) {
+  console.log("##### Wallet: ");
 
   const [showing, setShowing] = useState(false);
+  const [coins, setCoins] = useState(generateCoins());
+
   const walletAnim = useRef(new Animated.Value(90)).current;
 
   useEffect(() => {
+    // setCoins(generateCoins())
     Animated.spring(walletAnim, {
       toValue: showing ? 5 : 90,
       duration: 200,
       useNativeDriver: true
     }).start();
-  }, [showing]);
+
+  }, [showing, basketLayout]);
 
 
   function generateCoins() {
     const output = [];
     let count = 1;
-    while (count <= wallet) {
+    while (count <= balance.player) {
       output.push(count);
       count += 1;
     }
     return output;
   };
-
-  const coins = generateCoins();
 
 
   function toggleWallet() {
@@ -43,7 +46,13 @@ export function Wallet({ wallet }) {
     ]}>
       <Pressable onPress={toggleWallet} style={styles.toggle}><Text style={styles.toggleIcon}>$   </Text></Pressable>
       <View style={{ alignItems: 'center', justifyContent: 'space-between', }}>
-        {coins.map((coin) => <SpringToOrigin key={`coin-${coin}`} />)}
+        {basketLayout === null ? null : coins.map((coin, i) => (
+          <PickableCoin
+            key={`coin-${i}`}
+            coords={{ x: 0, y: 0, position: 'relative' }}
+            handleMoney={handleMoney}
+            basketLayout={basketLayout} />
+        ))}
       </View>
     </Animated.View>
   );

@@ -15,12 +15,11 @@ Button[Type][Shape][Size]
   ex: Button[Tree][Round][Medium] which I abbreviate to 'ButtonTRM'
 */
 
-export function HomeScreen({ navigation, wallet, handleWallet }) {
+export function HomeScreen({ navigation, balance, handleWallet }) {
   console.log("##### HomeScreen: ");
   const backgroundMid = require('../../assets/landscape/demo-homescreen-mid-edit.png');
   const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
   const [showWallet, setShowWallet] = useState(false);
-<Wallet toggleWallet={()=> setShowWallet(() => !showWallet)} wallet={wallet} showing={showWallet} />
 
   function handleNavigation(route) {
     navigation.navigate(route);
@@ -50,10 +49,13 @@ export function HomeScreen({ navigation, wallet, handleWallet }) {
         </View>
 
         <View style={styles.wallet}>
-          <ButtonWallet toggleWallet={()=> setShowWallet(() => !showWallet)}/>
+          <ButtonWallet toggleWallet={() => setShowWallet(() => !showWallet)} />
         </View>
 
-        <Wallet toggleWallet={()=> setShowWallet(() => !showWallet)} wallet={wallet} showing={showWallet} />
+        <Wallet
+          balance={balance}
+          basket={null}
+          showing={showWallet} />
       </View>
       <StatusBar style="auto" hidden={true} />
     </ImageBackground>

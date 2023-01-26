@@ -10,14 +10,18 @@ function App() {
   console.log("##### App");
 
   const [investors, setInvestors] = useState(demoInvestors);
-  const [wallet, setWallet] = useState(1);
   const [balance, setBalance] = useState({
-    player: 0,
+    player: 3,
     tree: 10,
     scientist: 1,
     biologist: 1,
     genomist: 2,
   });
+
+
+  useEffect(()=> {
+    console.log("App Balances: ", balance)
+  },[balance, setBalance])
 
 
   const handleMoney = (from, to, amt) => {
@@ -27,19 +31,22 @@ function App() {
       [from]: balance[from] - amt,
       [to]: balance[to] + amt
     });
-    // console.log("Balance After: ", balance);
+    console.log("****** Balance After: *******\n", balance);
   };
 
   return (
     <NavigationContainer>
       <Stack.Navigator style={{ display: 'hidden' }}>
 
-        <Stack.Screen name="Home" options={{ headerShown: false }} >
-          {(props) => <HomeScreen {...props} wallet={balance.player} />}
+        <Stack.Screen name="Home"
+          options={{ headerShown: false }} >
+          {(props) => <HomeScreen {...props} balance={balance} />}
         </Stack.Screen >
 
-        <Stack.Screen name="HomeTree" options={{ headerShown: false }} >
-          {(props) => <HomeTree {...props} wallet={balance.player} handleMoney={handleMoney} />}
+        <Stack.Screen
+          name="HomeTree"
+          options={{ headerShown: false }} >
+          {(props) => <HomeTree {...props} balance={balance} handleMoney={handleMoney} />}
         </Stack.Screen >
 
         <Stack.Screen

@@ -63,7 +63,7 @@ function getCoins(windowH, windowW) {
 }
 
 
-export function HomeTree({ navigation, wallet, handleMoney }) {
+export function HomeTree({ navigation, balance, handleMoney }) {
   console.log('#### HomeTree: ');
   const { height, width } = useWindowDimensions();
   const introDiagram = require('../../assets/diagrams/money-tree-diagram.png');
@@ -75,7 +75,7 @@ export function HomeTree({ navigation, wallet, handleMoney }) {
   const [showModal, setShowModal] = useState("intro");
   const [basketCount, setBasketCount] = useState(0);
   const [coins, setCoins] = useState(getCoins(height, width));
-  const [basketMeasure, setBasketMeasure] = useState(null); //async, initially renders as null
+  const [basketLayout, setBasketLayout] = useState(null); //async, initially renders as null
 
   /**
    * Sample Layout Data for Basket:
@@ -87,8 +87,8 @@ export function HomeTree({ navigation, wallet, handleMoney }) {
    * }
    */
   function handleBasketLayout(e) {
-    setBasketMeasure(e.nativeEvent.layout);
-    console.log("##### Basket Layout: ", e.nativeEvent.layout);
+    setBasketLayout(e.nativeEvent.layout);
+    // console.log("##### Basket Layout: ", e.nativeEvent.layout);
   }
 
   // passed from component to hook
@@ -125,17 +125,17 @@ export function HomeTree({ navigation, wallet, handleMoney }) {
       style={styles.background}>
       <View style={styles.container}>
         <Image resizeMode="contain" style={styles.canopy} source={canopy} />
-        {basketMeasure && coins.map((coords, i) => (
+        {basketLayout && coins.map((coords, i) => (
           <PickableCoin
             key={`coin-${i}-${coords.x}`}
             coords={coords}
             handleMoney={() => updateBasket(coords.x)}
-            basket={basketMeasure} />
+            basketLayout={basketLayout} />
         ))}
         <Image onLayout={handleBasketLayout} resizeMode="contain" style={styles.basketOne} source={basket} />
         <Text style={styles.basketCount}>${basketCount}</Text>
       </View>
-      <Wallet wallet={wallet} />
+      <Wallet balance={balance} />
       <StatusBar style="auto" hidden={true} />
     </ImageBackground>
   );

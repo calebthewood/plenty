@@ -5,8 +5,8 @@ import { Image, View, StyleSheet, Pressable, Animated, Text } from "react-native
  * Renders an animated figure as part of a list to be
  * used on the Investor screen.
  */
-export function MarketFigure({ investor, index, animatedValues, selected }) {
-  const [scaleAnimations, translateAnimations, setSelected, resetFigures] = animatedValues;
+export function MarketFigure({ investor, index, animatedValues }) {
+  const [scaleAnimations, translateAnimations, setSelected, resetFigures, selected] = animatedValues;
 
   function handlePress(evt) {
     if (selected !== index) {
@@ -47,14 +47,10 @@ const styles = StyleSheet.create({
   figure: {
     height: 180,
     width: 150,
-    // borderWidth: 1,
-    // borderColor: '#FD7272',
-    // alignSelf: 'flex-end',
     zIndex: 2,
   },
   shadow: {
     position: 'absolute',
-    // borderWidth: 1,
     zIndex: 1,
     backgroundColor: '#21210310',
     borderRadius: 50,
@@ -62,7 +58,6 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     bottom: -25,
-    // left: 40,
     shadowColor: 'black',
     shadowOffset: { width: -5, height: -5 },
     shadowOpacity: 1, // 0-1
@@ -72,7 +67,6 @@ const styles = StyleSheet.create({
       { skewX: '45deg' }]
   },
   wordBubble: {
-    // borderWidth: 1,
     width: 90,
     height: 90,
     left: -20,
@@ -81,7 +75,6 @@ const styles = StyleSheet.create({
     width: 200,
     height: 90,
     backgroundColor: 'white',
-    // position: 'absolute',
     left: 20,
     top: 5,
     borderRadius: 5,
