@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Pressable, Animated } from 'react-native';
 import { SpringToOrigin } from '../components/SpringToOrigin';
 import { PickableCoin } from '../components/PickableCoin';
 
-export function Wallet({ balance, basketLayout, handleMoney }) {
+export function Wallet({ balance, basketLayout, handleMoney, onRelease }) {
   console.log("##### Wallet: ");
 
   const [showing, setShowing] = useState(false);
@@ -46,13 +46,17 @@ export function Wallet({ balance, basketLayout, handleMoney }) {
     ]}>
       <Pressable onPress={toggleWallet} style={styles.toggle}><Text style={styles.toggleIcon}>$   </Text></Pressable>
       <View style={{ alignItems: 'center', justifyContent: 'space-between', }}>
-        {basketLayout === null ? null : coins.map((coin, i) => (
-          <PickableCoin
-            key={`coin-${i}`}
-            coords={{ x: 0, y: 0, position: 'relative' }}
-            handleMoney={handleMoney}
-            basketLayout={basketLayout} />
-        ))}
+        {basketLayout === null ?
+          coins.map((coin, i) => <SpringToOrigin key={`coin-${i}`} />)
+          :
+          coins.map((coin, i) => (
+            <PickableCoin
+              key={`coin-${i}`}
+              coords={{ x: 0, y: 0, position: 'relative' }}
+              handleMoney={handleMoney}
+              basketLayout={basketLayout}
+              onRelease={onRelease} />
+          ))}
       </View>
     </Animated.View>
   );

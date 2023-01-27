@@ -8,16 +8,28 @@ export function TheMarket({ investors, balance, handleMoney }) {
   const [selected, setSelected] = useState(null);
   const [reset, setReset] = useState(false);
   const [basketLayout, setBasketLayout] = useState(null);
+  const [basketCount, setBasketCount] = useState(selected !== null ? balance[investors[selected].id] : null);
   // const [basketLayout, onBasketLayout] = useComponentSize();
+
   const onLayout = useCallback(event => {
     const { width, height, x, y } = event.nativeEvent.layout;
     setBasketLayout({ width, height, x, y });
   }, []);
 
+  useEffect(() => {
+    if (selected === null) return
+    let to = investors[selected].id
+    if (balance[to] >= investors[selected].cost) {
+      to = 'player'
+    }
+
+    handleMoney("player", to, 1);
+  }, [basketCount]);
+
   const investMoney = () => {
     if (selected !== null) {
       let to = investors[selected].id
-      handleMoney('player', to, 1);
+      handleMoney('player', to, 1, balance);
       console.log('#### investMoney: ', to);
     }
   };
@@ -28,11 +40,7 @@ export function TheMarket({ investors, balance, handleMoney }) {
 
   // Custom offset values based on who is selected
   const frontOffsets = [30, -85, -200];
-  //Each element is the set of offsets based on who is selected: 0,1,2
-  const backOffsets = [
-    [0, 380, 380],
-    [50, 0, 190],
-    [-140, -150, 0]];
+  const backOffsets = [[0, 380, 380],[50, 0, 190],[-140, -150, 0]];
 
   const scaleAnimations = useRef([
     new Animated.Value(1),
@@ -102,8 +110,9 @@ export function TheMarket({ investors, balance, handleMoney }) {
 
       <Wallet
         basketLayout={basketLayout}
-        handleMoney={() => handleMoney('player', investors[selected].id, 1)}
-        balance={balance} />
+        handleMoney={() => setBasketCount(basketCount => basketCount + 1)}
+        balance={balance}
+        onRelease={"hide"} />
 
       {selected === null ? null :
         <View style={styles.ideaDetail}>
@@ -119,7 +128,9 @@ export function TheMarket({ investors, balance, handleMoney }) {
             <View key={`cost-${i}`} style={
               i < balance[investors[selected].id] ?
                 styles.costBackgroundFilled : styles.costBackgroundEmpty}>
-              <Text key={`${item}-${i}`} style={styles.costDiagram}>{item}</Text>
+              <Text key={`${item}-${i}`} style={
+              i < balance[investors[selected].id] ?
+                styles.costCoinText : styles.costEmptyText}>{item}</Text>
             </View>))}
         </View>}
 
@@ -237,9 +248,18 @@ const styles = StyleSheet.create({
   costTitle: {
     fontSize: 20,
   },
-  costDiagram: {
-    fontSize: 30,
-    left: 1
+  costEmptyText: {
+    fontSize: 20,
+  },
+  costCoinText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 7,
+    left: 13,
+    fontSize: 24,
+    width: 18,
+    fontWeight: "bold",
+    color: "#d57e08",
   },
   costBackgroundEmpty: {
     backgroundColor: 'grey',
@@ -252,14 +272,22 @@ const styles = StyleSheet.create({
     opacity: .7,
   },
   costBackgroundFilled: {
-    backgroundColor: 'gold',
-    borderRadius: 50,
-    borderWidth: 'goldenrod',
-    height: 41,
-    width: 41,
-    alignItems: 'center',
-    justifyContent: 'center',
-    opacity: .7,
+
+    backgroundColor: "#ffbd0b",
+    borderRadius: 100,
+    height: 50,
+    width: 50,
+
+    shadowOffset: { width: -2, height: 4 },
+    shadowColor: "#212121",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    borderWidth: 4,
+
+    borderTopColor: "#ffd84c",
+    borderLeftColor: "#ffd84c",
+    borderRightColor: "#d57e08",
+    borderBottomColor: "#d57e08",
   },
   pressable: {
     position: 'relative',

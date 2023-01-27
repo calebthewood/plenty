@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { View, StyleSheet, Animated, Text, PanResponder } from 'react-native';
 
 
-export function PickableCoin({ handleMoney, coords, basketLayout }) {
+export function PickableCoin({ handleMoney, coords, basketLayout, onRelease }) {
 
   const [showing, setShowing] = useState(true);
 
@@ -45,6 +45,8 @@ export function PickableCoin({ handleMoney, coords, basketLayout }) {
           newY = 320 - (moveY - dy);
           handleMoney();
         }
+        if (onRelease === "hide" && basketLayout !== null) hideCoin()
+
         Animated.spring(pan, {
           toValue: { x: newX, y: newY },
           useNativeDriver: false,
