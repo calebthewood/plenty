@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Pressable, View, Image, StyleSheet } from 'react-native';
 
-export function ButtonTRM() {
+export function ButtonTRM({ figureImg }) {
   console.log("##### ButtonTRM");
   const [pressed, setPressed] = useState(false);
   const treeImg = require('../../assets/trees/tree-round-3.png');
-  const figureImg = require('../../assets/figures/figure-girl-purple.png');
+  // const figureImg = require('../../assets/figures/figure-girl-purple.png');
 
   return (
     <Pressable
@@ -50,21 +50,20 @@ const styles = StyleSheet.create({
     position: 'relative',
     height: 120,
     width: 80,
-    top: 23,
+    top: 28,
     zIndex: 1,
-
   },
   figure: {
     position: 'absolute',
-    height: 35,
-    width: 15,
-    top: 92,
-    left: 45,
+    height: 55,
+    width: 35,
+    top: 75,
+    left: 40,
     zIndex: 2,
   },
   base: {
-    width: 45,
-    height: 45,
+    width: 55,
+    height: 55,
     cursor: 'pointer',
     backgroundColor: 'transparent',
     borderRadius: 50,
@@ -78,8 +77,8 @@ const styles = StyleSheet.create({
     border: 'none',
     borderStyle: 'solid',
     borderRadius: 50,
-    width: 45,
-    height: 40,
+    width: 50,
+    height: 55,
     borderTopColor: '#9D5B35', // light brown
     borderTopWidth: 5,
     borderRightColor: '#7C472B', //dark brown
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
       { rotate: "0deg" },
       { skewX: '30deg' }]
   },
-    shadowPressed: {
+  shadowPressed: {
     top: 88,
     left: 10,
   }

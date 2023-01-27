@@ -15,7 +15,7 @@ Button[Type][Shape][Size]
   ex: Button[Tree][Round][Medium] which I abbreviate to 'ButtonTRM'
 */
 
-export function HomeScreen({ navigation, balance, handleWallet }) {
+export function HomeScreen({ navigation, balance, handleWallet, investors }) {
   console.log("##### HomeScreen: ");
   const backgroundMid = require('../../assets/landscape/demo-homescreen-mid-edit.png');
   const backgroundEmpty = require('../../assets/landscape/homescreen-empty-2.png');
@@ -25,6 +25,8 @@ export function HomeScreen({ navigation, balance, handleWallet }) {
     navigation.navigate(route);
   }
 
+  const [scientist, biologist, genomist] = investors;
+
   return (
     <ImageBackground
       source={backgroundMid}
@@ -32,9 +34,10 @@ export function HomeScreen({ navigation, balance, handleWallet }) {
       style={styles.background}>
       <View style={styles.container}>
 
-        <View style={styles.treeOne}>
-          <ButtonTRM />
-        </View>
+        {biologist.cost.length === balance.biologist ?
+          <View style={styles.treeOne}>
+            <ButtonTRM figureImg={biologist.figure} />
+          </View> : null}
 
         <View style={styles.caveOne}>
           <ButtonCave />
@@ -49,7 +52,7 @@ export function HomeScreen({ navigation, balance, handleWallet }) {
         </View>
 
         <View style={styles.wallet}>
-          <ButtonWallet toggleWallet={() => setShowWallet(() => !showWallet)} />
+          <ButtonWallet toggleWallet={() => setShowWallet(!showWallet)} />
         </View>
 
         <Wallet

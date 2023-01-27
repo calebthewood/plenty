@@ -40,7 +40,7 @@ function App() {
 
         <Stack.Screen name="Home"
           options={{ headerShown: false }} >
-          {(props) => <HomeScreen {...props} balance={balance} />}
+          {(props) => <HomeScreen {...props} investors={investors} balance={balance} />}
         </Stack.Screen >
 
         <Stack.Screen

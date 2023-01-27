@@ -65,7 +65,7 @@ export function Wallet({ balance, basketLayout, handleMoney, onRelease }) {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    right: 0,
+    right: 2,
     height: '100%',
     width: 100,
     backgroundColor: '#9b59b6',
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-
     height: 40,
     width: 50,
     top: 200,
