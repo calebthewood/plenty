@@ -1,9 +1,10 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { ImageBackground, StyleSheet, View, Pressable, Text, Animated, Image } from "react-native";
+import { ReturnHome } from '../components/ReturnHome';
 import { Wallet } from "./Wallet";
 
 
-export function TheMarket({ investors, balance, handleMoney }) {
+export function TheMarket({ navigation, investors, balance, handleMoney }) {
   const background = require('../../assets/landscape/market-landscape-1.png');
   const [selected, setSelected] = useState(null);
   const [reset, setReset] = useState(false);
@@ -17,10 +18,10 @@ export function TheMarket({ investors, balance, handleMoney }) {
   }, []);
 
   useEffect(() => {
-    if (selected === null) return
-    let to = investors[selected].id
+    if (selected === null) return;
+    let to = investors[selected].id;
     if (balance[to] >= investors[selected].cost) {
-      to = 'player'
+      to = 'player';
     }
 
     handleMoney("player", to, 1);
@@ -28,19 +29,19 @@ export function TheMarket({ investors, balance, handleMoney }) {
 
   const investMoney = () => {
     if (selected !== null) {
-      let to = investors[selected].id
+      let to = investors[selected].id;
       handleMoney('player', to, 1, balance);
       console.log('#### investMoney: ', to);
     }
   };
 
-  console.log("TheMarket, Selected: ", selected !== null ? balance[investors[selected].id] : 'none')
+  console.log("TheMarket, Selected: ", selected !== null ? balance[investors[selected].id] : 'none');
 
   /* ######## Animated List ######### */
 
   // Custom offset values based on who is selected
   const frontOffsets = [30, -85, -200];
-  const backOffsets = [[0, 380, 380],[50, 0, 190],[-140, -150, 0]];
+  const backOffsets = [[0, 380, 380], [50, 0, 190], [-140, -150, 0]];
 
   const scaleAnimations = useRef([
     new Animated.Value(1),
@@ -108,33 +109,36 @@ export function TheMarket({ investors, balance, handleMoney }) {
       resizeMode="cover"
       style={styles.background}>
 
+
       <Wallet
         basketLayout={basketLayout}
         handleMoney={() => setBasketCount(basketCount => basketCount + 1)}
         balance={balance}
         onRelease={"hide"} />
 
-      {selected === null ? null :
-        <View style={styles.ideaDetail}>
-          <Text style={styles.tempDiagram}>{investors[selected].ideaDetail}</Text>
-        </View>}
-
-      {selected === null ? null :
-        <View
-          onLayout={onLayout}
-          style={[styles.costSection, { height: investors[selected].cost.length * 70 }]}
-        >
-          {investors[selected].cost.map((item, i) => (
-            <View key={`cost-${i}`} style={
-              i < balance[investors[selected].id] ?
-                styles.costBackgroundFilled : styles.costBackgroundEmpty}>
-              <Text key={`${item}-${i}`} style={
-              i < balance[investors[selected].id] ?
-                styles.costCoinText : styles.costEmptyText}>{item}</Text>
-            </View>))}
-        </View>}
-
       <View style={styles.container}>
+        {selected === null ?
+          <ReturnHome navigateHome={() => navigation.navigate('Home')} />
+          :
+          <View style={styles.ideaDetail}>
+            <Text style={styles.tempDiagram}>{investors[selected].ideaDetail}</Text>
+          </View>}
+
+        {selected === null ? null :
+          <View
+            onLayout={onLayout}
+            style={[styles.costSection, { height: investors[selected].cost.length * 70 }]}
+          >
+            {investors[selected].cost.map((item, i) => (
+              <View key={`cost-${i}`} style={
+                i < balance[investors[selected].id] ?
+                  styles.costBackgroundFilled : styles.costBackgroundEmpty}>
+                <Text key={`${item}-${i}`} style={
+                  i < balance[investors[selected].id] ?
+                    styles.costCoinText : styles.costEmptyText}>{item}</Text>
+              </View>))}
+          </View>}
+
         <View style={styles.figures}>
           {investors.map((investor, index) => (
             <Animated.View
@@ -177,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: '#210f038c',
-    zIndex: 1,
+
   },
   ground: {
     width: '100%',
