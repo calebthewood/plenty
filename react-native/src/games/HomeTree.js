@@ -98,8 +98,8 @@ export function HomeTree({ navigation, balance, handleMoney }) {
   }
 
   useEffect(() => {
-    handleMoney("tree", "player", 1);
     if (basketCount === coins.length) {
+      handleMoney("tree", "player", basketCount);
       setShowModal("outro");
     }
   }, [basketCount]);

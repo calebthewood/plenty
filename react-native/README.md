@@ -43,6 +43,13 @@ to ValueXY to control both X and Y values.
 7. Added Wallet, it's just a dummy component at this point until I set up the state needed to track coins across the application. Also made the panels adjustable based on investment cost.
 - https://youtu.be/WNPhCZJDeL4
 
-8. Getting the global state set up to handle money transfers between actors in the app. MoneyTree to Player is shown here. Next is Player to InvestmentIdea.
+8. Getting the global state set up to handle money transfers between actors in the app. MoneyTree to Player is shown here. Next is Player to Investment Idea.
 - https://youtu.be/GlOnGjC5SZE
+
+9. Built a transfer system where every actor/entity in the app has their own balance. If the coin is over a valid basket when it's released then it transfers to the owner of the basket.
+- https://youtu.be/i8kUUkUndEw
+
+
+10. Working through the investment process. The skeleton is in place, once a person is invested in, they pop-up on the overworld map. Would like to add some nice transitions in next.
+- https://youtu.be/U-G5diaD1FY
 
